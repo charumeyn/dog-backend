@@ -1,6 +1,7 @@
+import { Address } from "src/addresses/entities/address.entity";
 import { Dog } from "src/dogs/entities/dog.entity";
 import { Fundraiser } from "src/fundraisers/entities/fundraiser.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Shelter {
@@ -10,8 +11,9 @@ export class Shelter {
   @Column()
   name: string;
 
-  @Column()
-  address_id: number;
+  @OneToOne(() => Address)
+  @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
+  address: Address;
 
   @Column()
   profile_id: number;

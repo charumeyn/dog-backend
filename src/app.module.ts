@@ -6,14 +6,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from 'db/data-source';
 import { SheltersModule } from './shelters/shelters.module';
 import { FundraisersModule } from './fundraisers/fundraisers.module';
+import { AddressesModule } from './addresses/addresses.module';
 
 @Module({
-  imports: [DogsModule, SheltersModule, FundraisersModule, TypeOrmModule.forRoot({
+  imports: [DogsModule, SheltersModule, FundraisersModule, AddressesModule, TypeOrmModule.forRoot({
     ...dataSourceOptions,
     autoLoadEntities: true,
     migrations: ['dist/db/migrations/*.js'],
     synchronize: true,
-  }), FundraisersModule, FundraisersModule],
+  })],
   controllers: [AppController],
   providers: [AppService],
 })

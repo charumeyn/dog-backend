@@ -4,7 +4,6 @@ import { UpdateShelterDto } from './dto/update-shelter.dto';
 import { Shelter } from './entities/shelter.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Injectable()
 export class SheltersService {
@@ -28,6 +27,7 @@ export class SheltersService {
       relations: {
         dogs: true,
         fundraisers: true,
+        address: true,
       },
     })
     if (!shelter) {
