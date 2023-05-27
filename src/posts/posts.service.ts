@@ -1,0 +1,81 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreatePostDto } from './dto/create-post.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Post } from './entities/post.entity';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { Dog } from 'src/dogs/entities/dog.entity';
+
+@Injectable()
+export class PostsService {
+  @InjectRepository(Post)
+  private readonly postRepository: Repository<Post>
+  @InjectRepository(Dog)
+  private readonly dogRepository: Repository<Dog>
+
+  async create(createPostDto: CreatePostDto) {
+    const getDog = await this.dogRepository.findOneOrFail({
+      where: { id: createPostDto.dog_id },
+    })
+    const post = this.postRepository.create({
+      title: createPostDto.title,
+      content: createPostDto.content,
+      thumb_image: createPostDto.thumb_image,
+      images: createPostDto.images,
+      created_at: createPostDto.created_at,
+      dog: getDog
+    })
+    await this.postRepository.save(post)
+
+    return {
+      success: true,
+      data: post,
+    }
+  }
+
+  async findAll(paginationQuery: PaginationQueryDto) {
+    const { limit, offset } = paginationQuery;
+    const posts = await this.postRepository.find({
+      skip: offset,
+      take: limit,
+      relations: {
+        dog: true,
+      }
+    })
+
+    return posts;
+  }
+
+  async findOne(id: number) {
+    const post = await this.postRepository.findOneOrFail({
+      where: { id },
+      relations: {
+        dog: true,
+      }
+    })
+    if (!post) {
+      throw new NotFoundException(`Post with ID ${id} was not found.`)
+    }
+    return post;
+  }
+
+  async update(id: number, updatePostDto: UpdatePostDto) {
+    const post = await this.postRepository.preload({
+      id: +id,
+      ...updatePostDto
+    })
+    if (!post) {
+      throw new NotFoundException(`Post with ${id} was not found.`)
+    }
+    await this.postRepository.save(post)
+    return {
+      success: true,
+      data: post,
+    };
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} post`;
+  }
+}

@@ -1,9 +1,10 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { CoatLength } from "../enums/coat-length.enum";
 import { Color } from "../enums/color.enum";
 import { Gender } from "../enums/gender.enum";
 import { Size } from "../enums/size.enum";
 import { Shelter } from "src/shelters/entities/shelter.entity";
+import { Post } from "src/posts/entities/post.entity";
 
 @Entity()
 export class Dog {
@@ -54,4 +55,7 @@ export class Dog {
   })
   @JoinColumn({ name: 'shelter_id', referencedColumnName: 'id' })
   shelter: Shelter;
+
+  @OneToMany(() => Post, post => post.dog,)
+  posts: Post[];
 }

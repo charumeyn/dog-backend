@@ -31,6 +31,7 @@ export class DogsService {
       take: limit,
       relations: {
         shelter: true,
+        posts: true,
       },
       where: {
         size: size
@@ -45,6 +46,7 @@ export class DogsService {
       where: { id },
       relations: {
         shelter: true,
+        posts: true,
       },
     })
     if (!dog) {
