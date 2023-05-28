@@ -1,7 +1,8 @@
 import { Exclude } from 'class-transformer';
-import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { UserType } from './user-type.enum';
 import { Address } from 'src/addresses/entities/address.entity';
+import { Shelter } from 'src/shelters/entities/shelter.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -33,4 +34,10 @@ export class User extends BaseEntity {
   @OneToOne(() => Address)
   @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   public address?: Address;
+
+  @ManyToOne(() => Shelter, (shelter) => shelter.users, {
+    cascade: true
+  })
+  @JoinColumn({ name: 'shelter_id', referencedColumnName: 'id' })
+  shelter: Shelter;
 }

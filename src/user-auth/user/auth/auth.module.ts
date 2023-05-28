@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './auth.strategy';
 import { ConfigService } from '@nestjs/config';
 import { User } from '../user.entity';
+import { Shelter } from 'src/shelters/entities/shelter.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { User } from '../user.entity';
         signOptions: { expiresIn: '365d' },
       }),
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Shelter]),
   ],
   controllers: [AuthController],
   providers: [AuthService, AuthHelper, JwtStrategy],

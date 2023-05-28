@@ -3,12 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AuthHelper } from './auth.helper';
 import { User } from '../user.entity';
-import { LoginDto, RegisterDto, UpdateUserDto } from './auth.dto';
+import { LoginDto, RegisterDto, UpdateUserDto, UpdateUserShelterDto } from './auth.dto';
+import { Shelter } from 'src/shelters/entities/shelter.entity';
 
 @Injectable()
 export class AuthService {
   @InjectRepository(User)
   private readonly repository: Repository<User>;
+  @InjectRepository(Shelter)
+  private readonly shelterRepository: Repository<Shelter>;
 
   @Inject(AuthHelper)
   private readonly _helper: AuthHelper;
@@ -83,5 +86,27 @@ export class AuthService {
       success: true,
       data: user,
     };
+  }
+
+  async updateShelter(id: number, updateUserShelterDto: UpdateUserShelterDto) {
+    const getShelter = await this.shelterRepository.findOneOrFail({
+      where: { id: updateUserShelterDto.shelter_id }
+    })
+    const user = await this.repository.preload({
+      id: +id,
+      shelter: getShelter
+    })
+    if (!getShelter) {
+      throw new NotFoundException(`Shelter with ${updateUserShelterDto.shelter_id} not found`);
+    }
+    if (!user) {
+      throw new NotFoundException(`User with ${id} not found`);
+    }
+
+    await this.repository.save(user);
+    return {
+      success: true,
+      data: user
+    }
   }
 }

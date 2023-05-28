@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { Request } from 'express';
 import { User } from '../user.entity';
 import { JwtAuthGuard } from './auth.guard';
-import { LoginDto, RegisterDto, UpdateUserDto } from './auth.dto';
+import { LoginDto, RegisterDto, UpdateUserDto, UpdateUserShelterDto } from './auth.dto';
 
 
 @Controller('auth')
@@ -31,5 +31,10 @@ export class AuthController {
   @Patch('users/:id')
   update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
     return this.service.update(+id, updateUserDto);
+  }
+
+  @Patch('users/:id/shelter')
+  updateShelter(@Param('id') id: number, @Body() updateUserShelterDto: UpdateUserShelterDto) {
+    return this.service.updateShelter(+id, updateUserShelterDto)
   }
 }

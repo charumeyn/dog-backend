@@ -1,5 +1,5 @@
 import { Trim } from 'class-sanitizer';
-import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
 import { UserType } from '../user-type.enum';
 import { Address } from 'src/addresses/entities/address.entity';
 
@@ -51,4 +51,9 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   public readonly password?: string;
+}
+
+export class UpdateUserShelterDto {
+  @IsNumber()
+  public readonly shelter_id?: number;
 }

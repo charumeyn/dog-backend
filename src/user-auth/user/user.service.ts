@@ -25,7 +25,8 @@ export class UserService {
     const user = await this.repository.findOneOrFail({
       where: { id },
       relations: {
-        address: true
+        address: true,
+        shelter: true
       }
     })
     if (!user) {
