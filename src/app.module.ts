@@ -11,6 +11,7 @@ import { PostsModule } from './posts/posts.module';
 import { ConfigModule } from '@nestjs/config';
 import { getEnvPath } from './common/helper/env.helper';
 import { UserAuthModule } from './user-auth/user-auth.module';
+import { CommentsModule } from './comments/comments.module';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 
@@ -21,7 +22,8 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
     migrations: ['dist/db/migrations/*.js'],
     synchronize: true,
   }), UserAuthModule,
-    ConfigModule.forRoot({ envFilePath, isGlobal: true }),],
+    ConfigModule.forRoot({ envFilePath, isGlobal: true }),
+    CommentsModule,],
   controllers: [AppController],
   providers: [AppService],
 })

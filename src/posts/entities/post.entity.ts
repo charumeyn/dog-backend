@@ -1,5 +1,5 @@
 import { Dog } from "src/dogs/entities/dog.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Post {
@@ -11,6 +11,10 @@ export class Post {
   })
   @JoinColumn({ name: 'dog_id', referencedColumnName: 'id' })
   dog: Dog;
+
+  @OneToMany(() => Post, post => post.comments)
+  comments: Comment[];
+
 
   @Column()
   title: string;

@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { UserType } from './user-type.enum';
 import { Address } from 'src/addresses/entities/address.entity';
 import { Shelter } from 'src/shelters/entities/shelter.entity';
@@ -40,4 +40,7 @@ export class User extends BaseEntity {
   })
   @JoinColumn({ name: 'shelter_id', referencedColumnName: 'id' })
   shelter: Shelter;
+
+  @OneToMany(() => User, user => user.comments,)
+  comments: Comment[];
 }
