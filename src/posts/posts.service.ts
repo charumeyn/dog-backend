@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { Post } from './entities/post.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Dog } from 'src/dogs/entities/dog.entity';
+import { Comment } from 'src/comments/entities/comment.entity';
 
 @Injectable()
 export class PostsService {
@@ -13,6 +14,8 @@ export class PostsService {
   private readonly postRepository: Repository<Post>
   @InjectRepository(Dog)
   private readonly dogRepository: Repository<Dog>
+  @InjectRepository(Comment)
+  private readonly commentRepository: Repository<Comment>
 
   async create(createPostDto: CreatePostDto) {
     const getDog = await this.dogRepository.findOneOrFail({
@@ -52,6 +55,7 @@ export class PostsService {
       where: { id },
       relations: {
         dog: true,
+        comments: true
       }
     })
     if (!post) {
