@@ -1,20 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Request } from 'express';
-import { UpdateNameDto } from './user.dto';
 import { User } from './user.entity';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Injectable()
 export class UserService {
   @InjectRepository(User)
   private readonly repository: Repository<User>;
 
-  public async updateName(body: UpdateNameDto, req: Request): Promise<User> {
-    const user: User = <User>req.user;
+  async findAll(paginationQuery: PaginationQueryDto) {
+    const { limit, offset } = paginationQuery;
+    const users = await this.repository.find({
+      skip: offset,
+      take: limit
+    })
 
-    user.name = body.name;
+    return users;
+  }
 
-    return this.repository.save(user);
+  async findOne(id: number) {
+    const user = await this.repository.findOneOrFail({
+      where: { id },
+    })
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} was not found`)
+    }
+    return user;
   }
 }

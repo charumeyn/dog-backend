@@ -1,19 +1,20 @@
-import { ClassSerializerInterceptor, Controller, Req, UseGuards, UseInterceptors, Put, Body, Inject } from '@nestjs/common';
-import { Request } from 'express';
-import { UpdateNameDto } from './user.dto';
-import { User } from './user.entity';
+import { ClassSerializerInterceptor, Controller, Req, UseGuards, UseInterceptors, Put, Body, Inject, Query, Get, Param, Patch } from '@nestjs/common';
 import { UserService } from './user.service';
-import { JwtAuthGuard } from './auth/auth.guard';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
   @Inject(UserService)
-  private readonly service: UserService;
+  readonly userService: UserService;
 
-  @Put('name')
-  @UseGuards(JwtAuthGuard)
+  @Get()
   @UseInterceptors(ClassSerializerInterceptor)
-  private updateName(@Body() body: UpdateNameDto, @Req() req: Request): Promise<User> {
-    return this.service.updateName(body, req);
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.userService.findAll(paginationQuery);
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.userService.findOne(+id);
   }
 }

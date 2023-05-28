@@ -1,9 +1,9 @@
-import { Body, Controller, Inject, Post, ClassSerializerInterceptor, UseInterceptors, UseGuards, Req } from '@nestjs/common';
-import { RegisterDto, LoginDto } from './auth.dto';
+import { Body, Controller, Inject, Post, ClassSerializerInterceptor, UseInterceptors, UseGuards, Req, Patch, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Request } from 'express';
 import { User } from '../user.entity';
 import { JwtAuthGuard } from './auth.guard';
+import { LoginDto, RegisterDto, UpdateUserDto } from './auth.dto';
 
 
 @Controller('auth')
@@ -13,7 +13,7 @@ export class AuthController {
 
   @Post('register')
   @UseInterceptors(ClassSerializerInterceptor)
-  private register(@Body() body: RegisterDto): Promise<User | never> {
+  private register(@Body() body: RegisterDto) {
     return this.service.register(body);
   }
 
@@ -26,5 +26,10 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   private refresh(@Req() { user }: Request): Promise<string | never> {
     return this.service.refresh(<User>user);
+  }
+
+  @Patch('users/:id')
+  update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+    return this.service.update(+id, updateUserDto);
   }
 }

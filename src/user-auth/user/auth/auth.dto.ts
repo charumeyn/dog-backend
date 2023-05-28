@@ -1,5 +1,6 @@
 import { Trim } from 'class-sanitizer';
-import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import { UserType } from '../user-type.enum';
 
 export class RegisterDto {
   @Trim()
@@ -12,8 +13,21 @@ export class RegisterDto {
 
   @IsString()
   @IsOptional()
-  public readonly name?: string;
+  public readonly first_name?: string;
+
+  @IsString()
+  @IsOptional()
+  public readonly last_name?: string;
+
+  @IsString()
+  @IsOptional()
+  public readonly phone?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public readonly type: UserType;
 }
+
 
 export class LoginDto {
   @Trim()
@@ -22,4 +36,18 @@ export class LoginDto {
 
   @IsString()
   public readonly password: string;
+}
+
+export class UpdateUserDto {
+  @IsString()
+  @IsOptional()
+  public readonly first_name?: string;
+
+  @IsString()
+  @IsOptional()
+  public readonly last_name?: string;
+
+  @IsString()
+  @IsOptional()
+  public readonly password?: string;
 }
