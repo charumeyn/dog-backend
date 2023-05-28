@@ -6,7 +6,6 @@ import { Repository } from 'typeorm';
 import { Post } from './entities/post.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Dog } from 'src/dogs/entities/dog.entity';
-import { User } from 'src/user-auth/user/user.entity';
 
 @Injectable()
 export class PostsService {
