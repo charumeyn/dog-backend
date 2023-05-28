@@ -1,6 +1,7 @@
 import { Exclude } from 'class-transformer';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { UserType } from './user-type.enum';
+import { Address } from 'src/addresses/entities/address.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -28,4 +29,8 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true, default: UserType.MEMBER })
   public type: UserType;
+
+  @OneToOne(() => Address)
+  @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
+  public address?: Address;
 }

@@ -1,6 +1,7 @@
 import { Trim } from 'class-sanitizer';
 import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 import { UserType } from '../user-type.enum';
+import { Address } from 'src/addresses/entities/address.entity';
 
 export class RegisterDto {
   @Trim()

@@ -5,11 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from './entities/address.entity';
 import { Repository } from 'typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { User } from 'src/user-auth/user/user.entity';
 
 @Injectable()
 export class AddressesService {
   @InjectRepository(Address)
   private readonly addressRepository: Repository<Address>
+  @InjectRepository(User)
+  private readonly userRepository: Repository<User>
 
   async findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset, size } = paginationQuery;
@@ -22,8 +25,18 @@ export class AddressesService {
   }
 
   async create(createAddressDto: CreateAddressDto) {
+    const getUser = await this.userRepository.findOneOrFail({
+      where: { id: createAddressDto.user_id }
+    })
     const address = this.addressRepository.create({
-      ...createAddressDto
+      line1: createAddressDto.line1,
+      line2: createAddressDto.line2,
+      line3: createAddressDto.line3,
+      city: createAddressDto.city,
+      state: createAddressDto.state,
+      zip: createAddressDto.zip,
+      country: createAddressDto.country,
+      user: getUser
     })
     await this.addressRepository.save(address)
     return {
@@ -34,7 +47,10 @@ export class AddressesService {
 
   async findOne(id: number) {
     const address = await this.addressRepository.findOneOrFail({
-      where: { id }
+      where: { id },
+      relations: {
+        user: true
+      }
     })
     if (!address) {
       throw new NotFoundException(`Address with ID ${id} was not found`)

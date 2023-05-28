@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Request } from 'express';
 import { User } from './user.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { Address } from 'src/addresses/entities/address.entity';
 
 @Injectable()
 export class UserService {
@@ -23,6 +24,9 @@ export class UserService {
   async findOne(id: number) {
     const user = await this.repository.findOneOrFail({
       where: { id },
+      relations: {
+        address: true
+      }
     })
     if (!user) {
       throw new NotFoundException(`User with ID ${id} was not found`)
