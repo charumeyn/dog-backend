@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Body, Injectable, NotFoundException, ValidationPipe } from '@nestjs/common';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { UpdateDogDto } from './dto/update-dog.dto';
 import { Repository } from 'typeorm';
@@ -7,20 +7,33 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { FilterDogsDto } from './dto/filter-dogs.dto';
 import { Size } from './enums/size.enum';
+import { Shelter } from 'src/shelters/entities/shelter.entity';
+import { Post } from 'src/posts/entities/post.entity';
+import { Donation } from 'src/donations/entities/donation.entity';
 
 @Injectable()
 export class DogsService {
   @InjectRepository(Dog)
   private readonly dogRepository: Repository<Dog>
+  @InjectRepository(Shelter)
+  private readonly shelterRepository: Repository<Shelter>
+  @InjectRepository(Donation)
+  private readonly donationRepository: Repository<Donation>
 
   async create(createDogDto: CreateDogDto) {
     const dog = this.dogRepository.create({
       ...createDogDto
     })
+
+    dog.shelter = await this.shelterRepository.findOneOrFail({
+      where: { id: createDogDto.shelter_id }
+    })
+
     await this.dogRepository.save(dog);
+
     return {
       success: true,
-      data: dog,
+      data: dog
     };
   }
 
@@ -32,6 +45,7 @@ export class DogsService {
       relations: {
         shelter: true,
         posts: true,
+        donations: true,
       },
       where: {
         size: size
@@ -47,6 +61,7 @@ export class DogsService {
       relations: {
         shelter: true,
         posts: true,
+        donations: true,
       },
     })
     if (!dog) {
@@ -60,6 +75,7 @@ export class DogsService {
       id: +id,
       ...updateDogDto
     })
+
     if (!dog) {
       throw new NotFoundException(`Dog with ${id} not found`);
     }
@@ -69,6 +85,7 @@ export class DogsService {
       where: { id },
       relations: {
         shelter: true,
+        donations: true,
       }
     })
 
