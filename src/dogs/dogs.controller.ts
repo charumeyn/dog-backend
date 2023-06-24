@@ -3,8 +3,6 @@ import { DogsService } from './dogs.service';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { UpdateDogDto } from './dto/update-dog.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { FilterDogsDto } from './dto/filter-dogs.dto';
-import { Size } from './enums/size.enum';
 
 @Controller('dogs')
 export class DogsController {

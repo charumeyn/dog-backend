@@ -24,7 +24,8 @@ export class AuthController {
 
   @Post('refresh')
   @UseGuards(JwtAuthGuard)
-  private refresh(@Req() { user }: Request): Promise<string | never> {
+  // private refresh(@Req() { user }: Request): Promise<string | never> {
+  private refresh(@Req() { user }: any): Promise<string | never> {
     return this.service.refresh(<User>user);
   }
 

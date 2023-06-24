@@ -64,9 +64,17 @@ export class DogsService {
       throw new NotFoundException(`Dog with ${id} not found`);
     }
     await this.dogRepository.save(dog);
+
+    const updatedDog = await this.dogRepository.findOneOrFail({
+      where: { id },
+      relations: {
+        shelter: true,
+      }
+    })
+
     return {
       success: true,
-      data: dog,
+      data: updatedDog,
     };
   }
 

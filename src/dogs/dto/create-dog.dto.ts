@@ -3,15 +3,12 @@ import { Color } from "../enums/color.enum";
 import { Size } from "../enums/size.enum";
 import { CoatLength } from "../enums/coat-length.enum";
 import { Gender } from "../enums/gender.enum";
+import { Shelter } from "src/shelters/entities/shelter.entity";
 
 export class CreateDogDto {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
-
-  @IsNumber()
-  @IsOptional()
-  readonly shelter_id: number;
 
   @ArrayNotEmpty()
   readonly breed: number[];
@@ -43,6 +40,10 @@ export class CreateDogDto {
   @IsNotEmpty()
   @IsBoolean()
   readonly is_active: boolean;
+
+  @IsNotEmpty()
+  @IsNumber()
+  readonly shelter: Shelter;
 
   @IsNotEmpty()
   @IsDate()
