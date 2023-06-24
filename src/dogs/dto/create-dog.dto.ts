@@ -43,7 +43,7 @@ export class CreateDogDto {
 
   @IsNotEmpty()
   @IsNumber()
-  readonly shelter: Shelter;
+  readonly shelter_id: number;
 
   @IsNotEmpty()
   @IsDate()

@@ -12,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
 import { getEnvPath } from './common/helper/env.helper';
 import { UserAuthModule } from './user-auth/user-auth.module';
 import { CommentsModule } from './comments/comments.module';
+import { DonationsModule } from './donations/donations.module';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 
@@ -23,7 +24,8 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
     synchronize: true,
   }), UserAuthModule,
     ConfigModule.forRoot({ envFilePath, isGlobal: true }),
-    CommentsModule,],
+    CommentsModule,
+    DonationsModule,],
   controllers: [AppController],
   providers: [AppService],
 })

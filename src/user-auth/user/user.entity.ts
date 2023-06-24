@@ -3,6 +3,8 @@ import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne,
 import { UserType } from './user-type.enum';
 import { Address } from 'src/addresses/entities/address.entity';
 import { Shelter } from 'src/shelters/entities/shelter.entity';
+import { Donation } from 'src/donations/entities/donation.entity';
+import { Comment } from 'src/comments/entities/comment.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -41,6 +43,6 @@ export class User extends BaseEntity {
   @JoinColumn({ name: 'shelter_id', referencedColumnName: 'id' })
   shelter: Shelter;
 
-  @OneToMany(() => User, user => user.comments,)
+  @OneToMany(() => Comment, comment => comment.user,)
   comments: Comment[];
 }
