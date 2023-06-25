@@ -1,4 +1,4 @@
-import { Body, Injectable, NotFoundException, ValidationPipe } from '@nestjs/common';
+import { Injectable, NotFoundException, ValidationPipe } from '@nestjs/common';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { UpdateDogDto } from './dto/update-dog.dto';
 import { Repository } from 'typeorm';

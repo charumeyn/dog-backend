@@ -30,6 +30,7 @@ export class FundraisersService {
       take: limit,
       relations: {
         shelter: true,
+        donations: true,
       }
     })
 
@@ -40,7 +41,8 @@ export class FundraisersService {
     const fundraiser = await this.fundraiserRepository.findOneOrFail({
       where: { id },
       relations: {
-        shelter: true
+        shelter: true,
+        donations: true,
       }
     })
     if (!fundraiser) {
