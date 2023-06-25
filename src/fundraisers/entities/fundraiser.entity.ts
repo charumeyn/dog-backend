@@ -1,3 +1,4 @@
+import { Donation } from "src/donations/entities/donation.entity";
 import { Shelter } from "src/shelters/entities/shelter.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -35,5 +36,8 @@ export class Fundraiser {
   })
   @JoinColumn({ name: 'shelter_id', referencedColumnName: 'id' })
   shelter: Shelter;
+
+  @OneToMany(() => Donation, (donation) => donation.fundraiser)
+  donations: Donation[];
 }
 

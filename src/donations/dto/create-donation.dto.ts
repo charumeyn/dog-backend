@@ -1,4 +1,4 @@
-import { IsDate, IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { RecipientType } from "src/common/enums/recipient-type.enum";
 
 export class CreateDonationDto {
@@ -26,9 +26,13 @@ export class CreateDonationDto {
   @IsNumber()
   readonly amount: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   readonly dog_id: number;
+
+  @IsOptional()
+  @IsNumber()
+  readonly fundraiser_id: number;
 
   @IsNotEmpty()
   @IsDate()

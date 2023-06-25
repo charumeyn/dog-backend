@@ -29,8 +29,13 @@ export class Donation {
 
   @ManyToOne(() => Dog, (dog) => dog.donations, {
     cascade: true,
-    nullable: false,
   })
   @JoinColumn({ name: 'dog_id', referencedColumnName: 'id' })
   dog: Dog;
+
+  @ManyToOne(() => Fundraiser, (fundraiser) => fundraiser.donations, {
+    cascade: true
+  })
+  @JoinColumn({ name: 'fundraiser_id', referencedColumnName: 'id' })
+  fundraiser: Fundraiser;
 }
