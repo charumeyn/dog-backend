@@ -26,7 +26,8 @@ export class UserService {
       where: { id },
       relations: {
         address: true,
-        shelter: true
+        shelter: true,
+        donations: true,
       }
     })
     if (!user) {

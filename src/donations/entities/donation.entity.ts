@@ -10,22 +10,19 @@ export class Donation {
   id: number;
 
   @Column()
-  donor_email: string;
-
-  @Column()
-  type: RecipientType;
+  email: string;
 
   @Column()
   payment_gateway: string;
+
+  @Column()
+  type: RecipientType;
 
   @Column()
   status: string;
 
   @Column()
   amount: number
-
-  @Column()
-  created_at: Date;
 
   @ManyToOne(() => Dog, (dog) => dog.donations, {
     cascade: true,
@@ -38,4 +35,19 @@ export class Donation {
   })
   @JoinColumn({ name: 'fundraiser_id', referencedColumnName: 'id' })
   fundraiser: Fundraiser;
+
+  @ManyToOne(() => User, (user) => user.donations, {
+    cascade: true,
+  })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  user: User;
+
+  @Column()
+  transaction_firstname: string;
+
+  @Column()
+  transaction_lastname: string;
+
+  @Column()
+  created_at: Date;
 }

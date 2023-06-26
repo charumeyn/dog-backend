@@ -22,21 +22,26 @@ export class DonationsService {
   private readonly fundRaiserRepository: Repository<Fundraiser>
 
   async create(createDonationDto: CreateDonationDto) {
+
     const donation = this.donationRepository.create({
       ...createDonationDto,
     })
 
-    if (createDonationDto.type === RecipientType.DOG) {
+    if (createDonationDto.type === RecipientType.Dog) {
       donation.dog = await this.dogRepository.findOneOrFail({
         where: { id: createDonationDto.dog_id }
       })
     }
 
-    if (createDonationDto.type === RecipientType.FUNDRAISER) {
+    if (createDonationDto.type === RecipientType.Fundraiser) {
       donation.fundraiser = await this.fundRaiserRepository.findOneOrFail({
         where: { id: createDonationDto.fundraiser_id }
       })
     }
+
+    donation.user = await this.userRepository.findOneOrFail({
+      where: { id: createDonationDto.user_id }
+    })
 
     await this.donationRepository.save(donation);
 
@@ -68,6 +73,7 @@ export class DonationsService {
       relations: {
         dog: true,
         fundraiser: true,
+        user: true,
       }
     })
     if (!donation) {
@@ -83,11 +89,15 @@ export class DonationsService {
     const fundraiser = await this.fundRaiserRepository.findOne({
       where: { id: updateDonationDto.fundraiser_id }
     })
+    const user = await this.userRepository.findOne({
+      where: { id: updateDonationDto.user_id }
+    })
     const donation = await this.donationRepository.preload({
       id: +id,
       ...updateDonationDto,
       dog: updateDonationDto.dog_id ? dog : null,
       fundraiser: updateDonationDto.fundraiser_id ? fundraiser : null,
+      user: user
     })
 
     if (!donation) {
