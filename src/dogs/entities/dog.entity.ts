@@ -64,6 +64,6 @@ export class Dog {
   @OneToMany(() => Donation, donation => donation.dog,)
   donations: Donation[];
 
-  @OneToMany(() => Fundraiser, fundraiser => fundraiser.dog,)
+  @OneToMany(() => Fundraiser, fundraiser => fundraiser.dog)
   fundraisers: Fundraiser[];
 }
