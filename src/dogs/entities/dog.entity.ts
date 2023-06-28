@@ -6,6 +6,7 @@ import { Size } from "../enums/size.enum";
 import { Shelter } from "src/shelters/entities/shelter.entity";
 import { Post } from "src/posts/entities/post.entity";
 import { Donation } from "src/donations/entities/donation.entity";
+import { Fundraiser } from "src/fundraisers/entities/fundraiser.entity";
 
 @Entity()
 export class Dog {
@@ -62,4 +63,7 @@ export class Dog {
 
   @OneToMany(() => Donation, donation => donation.dog,)
   donations: Donation[];
+
+  @OneToMany(() => Fundraiser, fundraiser => fundraiser.dog,)
+  fundraisers: Fundraiser[];
 }

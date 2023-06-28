@@ -1,14 +1,7 @@
-import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
+import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, IsUrl } from "class-validator";
+import { FundraiserType } from "src/common/enums/fundraiser-type.enum";
 
 export class CreateFundraiserDto {
-  @IsNotEmpty()
-  @IsNumber()
-  readonly profile_id: number;
-
-  @IsOptional()
-  @IsNumber()
-  readonly shelter_id: number;
-
   @IsNotEmpty()
   @IsString()
   readonly title: string;
@@ -44,4 +37,23 @@ export class CreateFundraiserDto {
   @IsOptional()
   @IsDate()
   readonly deleted_at: Date;
+
+  @IsOptional()
+  @IsNumber()
+  readonly created_by: number;
+
+  @IsNotEmpty()
+  readonly type: FundraiserType;
+
+  @IsOptional()
+  @IsNumber()
+  readonly shelter_id: number;
+
+  @IsOptional()
+  @IsNumber()
+  readonly user_id: number;
+
+  @IsOptional()
+  @IsNumber()
+  readonly dog_id: number;
 }

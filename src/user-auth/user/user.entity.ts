@@ -5,6 +5,7 @@ import { Address } from 'src/addresses/entities/address.entity';
 import { Shelter } from 'src/shelters/entities/shelter.entity';
 import { Donation } from 'src/donations/entities/donation.entity';
 import { Comment } from 'src/comments/entities/comment.entity';
+import { Fundraiser } from 'src/fundraisers/entities/fundraiser.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -48,4 +49,7 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Donation, donation => donation.user,)
   donations: Donation[];
+
+  @OneToMany(() => Fundraiser, fundraiser => fundraiser.user,)
+  fundraisers: Fundraiser[];
 }
