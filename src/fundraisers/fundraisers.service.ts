@@ -96,7 +96,7 @@ export class FundraisersService {
       ...dto,
       dog: dto.dog_id ? dog : null,
       shelter: dto.shelter_id ? shelter : null,
-      user: dto.user_id ? user : null
+      user: dto.user_id ? user : null,
     })
 
     if (!fundraiser) {

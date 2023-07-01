@@ -21,26 +21,31 @@ export class DonationsService {
   @InjectRepository(Fundraiser)
   private readonly fundRaiserRepository: Repository<Fundraiser>
 
-  async create(createDonationDto: CreateDonationDto) {
-
+  async create(dto: CreateDonationDto) {
     const donation = this.donationRepository.create({
-      ...createDonationDto,
+      ...dto,
     })
 
-    if (createDonationDto.type === RecipientType.Dog) {
+    if (dto.type === RecipientType.Dog) {
       donation.dog = await this.dogRepository.findOneOrFail({
-        where: { id: createDonationDto.dog_id }
+        where: { id: dto.dog_id }
       })
     }
 
-    if (createDonationDto.type === RecipientType.Fundraiser) {
+    if (dto.type === RecipientType.Fundraiser) {
       donation.fundraiser = await this.fundRaiserRepository.findOneOrFail({
-        where: { id: createDonationDto.fundraiser_id }
+        where: { id: dto.fundraiser_id }
       })
     }
 
-    donation.user = await this.userRepository.findOneOrFail({
-      where: { id: createDonationDto.user_id }
+    if (dto.type === RecipientType.User) {
+      donation.user = await this.userRepository.findOneOrFail({
+        where: { id: dto.user_id }
+      })
+    }
+
+    donation.donor = await this.userRepository.findOneOrFail({
+      where: { id: dto.donor_id }
     })
 
     await this.donationRepository.save(donation);
@@ -49,7 +54,6 @@ export class DonationsService {
       success: true,
       data: donation
     }
-
   }
 
 
@@ -61,6 +65,8 @@ export class DonationsService {
       relations: {
         dog: true,
         fundraiser: true,
+        user: true,
+        donor: true
       }
     })
 
@@ -74,6 +80,7 @@ export class DonationsService {
         dog: true,
         fundraiser: true,
         user: true,
+        donor: true
       }
     })
     if (!donation) {
@@ -82,22 +89,26 @@ export class DonationsService {
     return donation;
   }
 
-  async update(id: number, updateDonationDto: UpdateDonationDto) {
+  async update(id: number, dto: UpdateDonationDto) {
     const dog = await this.dogRepository.findOne({
-      where: { id: updateDonationDto.dog_id }
+      where: { id: dto.dog_id }
     })
     const fundraiser = await this.fundRaiserRepository.findOne({
-      where: { id: updateDonationDto.fundraiser_id }
+      where: { id: dto.fundraiser_id }
     })
     const user = await this.userRepository.findOne({
-      where: { id: updateDonationDto.user_id }
+      where: { id: dto.user_id }
+    })
+    const donor = await this.userRepository.findOne({
+      where: { id: dto.donor_id }
     })
     const donation = await this.donationRepository.preload({
       id: +id,
-      ...updateDonationDto,
-      dog: updateDonationDto.dog_id ? dog : null,
-      fundraiser: updateDonationDto.fundraiser_id ? fundraiser : null,
-      user: user
+      ...dto,
+      dog: dto.dog_id ? dog : null,
+      fundraiser: dto.fundraiser_id ? fundraiser : null,
+      user: dto.user_id ? user : null,
+      donor: donor
     })
 
     if (!donation) {

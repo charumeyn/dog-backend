@@ -9,8 +9,8 @@ export class DonationsController {
   constructor(private readonly donationsService: DonationsService) { }
 
   @Post()
-  create(@Body() createDonationDto: CreateDonationDto) {
-    return this.donationsService.create(createDonationDto);
+  create(@Body() dto: CreateDonationDto) {
+    return this.donationsService.create(dto);
   }
 
   @Get()
@@ -24,8 +24,8 @@ export class DonationsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateDonationDto: UpdateDonationDto) {
-    return this.donationsService.update(+id, updateDonationDto);
+  update(@Param('id') id: number, @Body() dto: UpdateDonationDto) {
+    return this.donationsService.update(+id, dto);
   }
 
   @Delete(':id')

@@ -42,6 +42,12 @@ export class Donation {
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
 
+  @ManyToOne(() => User, (user) => user.donations, {
+    cascade: true,
+  })
+  @JoinColumn({ name: 'donor_id', referencedColumnName: 'id' })
+  donor: User;
+
   @Column()
   transaction_firstname: string;
 

@@ -39,6 +39,10 @@ export class CreateDonationDto {
   @IsNumber()
   readonly user_id: number;
 
+  @IsNotEmpty()
+  @IsNumber()
+  readonly donor_id: number;
+
   @IsOptional()
   @IsString()
   readonly transaction_firstname: string;
