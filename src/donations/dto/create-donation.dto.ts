@@ -7,6 +7,14 @@ export class CreateDonationDto {
   @IsString()
   readonly transaction_id: string;
 
+  @IsOptional()
+  @IsString()
+  readonly transaction_firstname: string;
+
+  @IsOptional()
+  @IsString()
+  readonly transaction_lastname: string;
+
   @IsNotEmpty()
   @IsEmail()
   readonly email: string;
@@ -35,21 +43,13 @@ export class CreateDonationDto {
   @IsNumber()
   readonly fundraiser_id: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   readonly user_id: number;
 
   @IsNotEmpty()
   @IsNumber()
   readonly donor_id: number;
-
-  @IsOptional()
-  @IsString()
-  readonly transaction_firstname: string;
-
-  @IsOptional()
-  @IsString()
-  readonly transaction_lastname: string;
 
   @IsNotEmpty()
   @IsDate()

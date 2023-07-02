@@ -13,6 +13,15 @@ export class Donation {
   email: string;
 
   @Column()
+  transaction_id: string;
+
+  @Column()
+  transaction_firstname: string;
+
+  @Column()
+  transaction_lastname: string;
+
+  @Column()
   payment_gateway: string;
 
   @Column()
@@ -47,12 +56,6 @@ export class Donation {
   })
   @JoinColumn({ name: 'donor_id', referencedColumnName: 'id' })
   donor: User;
-
-  @Column()
-  transaction_firstname: string;
-
-  @Column()
-  transaction_lastname: string;
 
   @Column()
   created_at: Date;
