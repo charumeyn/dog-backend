@@ -10,9 +10,17 @@ export class CreateFundraiserDto {
   @IsString()
   readonly content: string;
 
-  @IsOptional()
+  @IsNotEmpty()
+  @IsUrl()
+  readonly main_image: string;
+
+  @IsNotEmpty()
   @IsUrl({}, { each: true })
   readonly images: string[];
+
+  @IsNotEmpty()
+  @IsString()
+  readonly purpose: string;
 
   @IsNotEmpty()
   @IsNumber()

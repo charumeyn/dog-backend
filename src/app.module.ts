@@ -13,11 +13,12 @@ import { getEnvPath } from './common/helper/env.helper';
 import { UserAuthModule } from './user-auth/user-auth.module';
 import { CommentsModule } from './comments/comments.module';
 import { DonationsModule } from './donations/donations.module';
+import { UsersModule } from './users/users.module';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 
 @Module({
-  imports: [DogsModule, SheltersModule, FundraisersModule, AddressesModule, PostsModule, TypeOrmModule.forRoot({
+  imports: [DogsModule, SheltersModule, FundraisersModule, AddressesModule, PostsModule, UsersModule, TypeOrmModule.forRoot({
     ...dataSourceOptions,
     autoLoadEntities: true,
     migrations: ['dist/db/migrations/*.js'],

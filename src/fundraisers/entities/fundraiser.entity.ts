@@ -15,11 +15,26 @@ export class Fundraiser {
   @Column()
   content: string;
 
+  @Column({ nullable: true })
+  main_image: string;
+
   @Column('json')
   images: string[];
 
+  @Column({ nullable: true })
+  purpose: string;
+
   @Column()
   goal_amount: number;
+
+  @Column({ nullable: true })
+  current_amount: number;
+
+  @Column({ nullable: true })
+  starts_at?: Date | null;
+
+  @Column({ nullable: true })
+  ends_at?: Date | null;
 
   @Column()
   created_at: Date;
