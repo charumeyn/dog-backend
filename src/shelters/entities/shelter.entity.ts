@@ -1,7 +1,7 @@
 import { Address } from "src/addresses/entities/address.entity";
 import { Dog } from "src/dogs/entities/dog.entity";
 import { Fundraiser } from "src/fundraisers/entities/fundraiser.entity";
-import { User } from "src/user-auth/user/user.entity";
+import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

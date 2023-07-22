@@ -5,10 +5,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Donation } from './entities/donation.entity';
 import { Repository } from 'typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { User } from 'src/user-auth/user/user.entity';
 import { Dog } from 'src/dogs/entities/dog.entity';
 import { Fundraiser } from 'src/fundraisers/entities/fundraiser.entity';
 import { RecipientType } from 'src/common/enums/recipient-type.enum';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class DonationsService {

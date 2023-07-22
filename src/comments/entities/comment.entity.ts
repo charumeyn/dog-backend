@@ -1,6 +1,6 @@
 import { Dog } from "src/dogs/entities/dog.entity";
 import { Post } from "src/posts/entities/post.entity";
-import { User } from "src/user-auth/user/user.entity";
+import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

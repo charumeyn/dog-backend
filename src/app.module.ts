@@ -10,7 +10,6 @@ import { AddressesModule } from './addresses/addresses.module';
 import { PostsModule } from './posts/posts.module';
 import { ConfigModule } from '@nestjs/config';
 import { getEnvPath } from './common/helper/env.helper';
-import { UserAuthModule } from './user-auth/user-auth.module';
 import { CommentsModule } from './comments/comments.module';
 import { DonationsModule } from './donations/donations.module';
 import { UsersModule } from './users/users.module';
@@ -23,7 +22,7 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
     autoLoadEntities: true,
     migrations: ['dist/db/migrations/*.js'],
     synchronize: true,
-  }), UserAuthModule,
+  }),
     ConfigModule.forRoot({ envFilePath, isGlobal: true }),
     CommentsModule,
     DonationsModule,],

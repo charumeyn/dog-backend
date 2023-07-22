@@ -1,7 +1,7 @@
 import { Dog } from "src/dogs/entities/dog.entity";
 import { Donation } from "src/donations/entities/donation.entity";
 import { Shelter } from "src/shelters/entities/shelter.entity";
-import { User } from "src/user-auth/user/user.entity";
+import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

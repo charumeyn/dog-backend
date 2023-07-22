@@ -1,7 +1,7 @@
 import { RecipientType } from "src/common/enums/recipient-type.enum";
 import { Dog } from "src/dogs/entities/dog.entity";
 import { Fundraiser } from "src/fundraisers/entities/fundraiser.entity";
-import { User } from "src/user-auth/user/user.entity";
+import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

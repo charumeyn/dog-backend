@@ -24,7 +24,8 @@ export class UsersService {
     })
 
     const user = await this.usersRepository.create({
-      name: dto.name,
+      first_name: dto.first_name,
+      last_name: dto.last_name,
       email: dto.email,
       password: hashedPassword
     })
@@ -59,7 +60,7 @@ export class UsersService {
 
     response.cookie('jwt', jwt, { httpOnly: true });
 
-    delete user.password
+    const { password, ...result } = user;
 
     return {
       success: true,

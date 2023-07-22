@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from './entities/address.entity';
 import { Repository } from 'typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { User } from 'src/user-auth/user/user.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class AddressesService {
