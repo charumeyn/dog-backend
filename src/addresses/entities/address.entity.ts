@@ -4,28 +4,28 @@ import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Address {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  line1: string;
+  line1!: string;
 
   @Column({ nullable: true })
-  line2: string;
+  line2!: string;
 
   @Column({ nullable: true })
-  line3: string;
+  line3!: string;
 
   @Column()
-  city: string;
+  city!: string;
 
   @Column()
-  state: string;
+  state!: string;
 
   @Column()
-  zip: string;
+  zip!: string;
 
   @Column()
-  country: string;
+  country!: string;
 
   @OneToOne(() => User, user => user.address)
   user: User;

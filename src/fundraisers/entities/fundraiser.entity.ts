@@ -4,49 +4,55 @@ import { Shelter } from "src/shelters/entities/shelter.entity";
 import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
+export enum FundraiserType {
+  Dog = "DOG",
+  User = "USER",
+  Shelter = "SHELTER"
+}
+
 @Entity()
 export class Fundraiser {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  title: string;
+  title!: string;
 
   @Column()
-  content: string;
+  content!: string;
 
   @Column({ nullable: true })
-  main_image: string;
+  main_image?: string;
 
-  @Column('json')
+  @Column({ type: 'json' })
   images: string[];
 
   @Column({ nullable: true })
   purpose: string;
 
-  @Column()
-  goal_amount: number;
+  @Column({ name: 'goal_amount' })
+  goalAmount!: number;
 
-  @Column({ nullable: true })
-  current_amount: number;
+  @Column({ name: 'current_amount', default: 0 })
+  currentAmount!: number;
 
-  @Column({ nullable: true })
-  starts_at?: Date | null;
+  @Column({ name: 'starts_at', type: 'date', nullable: true })
+  startsAt?: Date;
 
-  @Column({ nullable: true })
-  ends_at?: Date | null;
+  @Column({ name: 'ends_at', type: 'date', nullable: true })
+  endsAt?: Date | null;
 
-  @Column()
-  created_at: Date;
+  @Column({ name: 'created_at', type: 'date' })
+  createdAt!: Date;
 
-  @Column({ nullable: true })
-  updated_at?: Date | null;
+  @Column({ name: 'updated_at', nullable: true })
+  updatedAt?: Date;
 
-  @Column({ nullable: true })
-  deleted_at?: Date | null;
+  @Column({ name: 'deleted_at', nullable: true })
+  deletedAt?: Date;
 
-  @Column({ nullable: true })
-  created_by: number;
+  @Column({ name: 'created_by', nullable: true })
+  createdBy: number;
 
   @ManyToOne(() => Shelter, (shelter) => shelter.fundraisers, {
     cascade: true,

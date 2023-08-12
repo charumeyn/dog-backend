@@ -7,35 +7,35 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn
 @Entity()
 export class Shelter {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  name: string;
+  name!: string;
 
   @OneToOne(() => Address)
   @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   address: Address;
 
-  @Column()
-  approver_id: number;
+  @Column({ name: 'approver_id', nullable: true })
+  approverId?: number;
 
-  @Column()
-  is_active: boolean;
+  @Column({ name: 'is_active', type: 'boolean' })
+  isActive!: boolean;
 
-  @Column()
-  is_approved: boolean;
+  @Column({ name: 'is_approved', type: 'boolean' })
+  isApproved!: boolean;
 
-  @Column()
-  approved_at: Date;
+  @Column({ name: 'approved_at', type: 'date', nullable: true })
+  approvedAt?: Date;
 
-  @Column()
-  image_thumb: string;
+  @Column({ name: 'main_image' })
+  mainImage!: string;
 
-  @Column('json', { nullable: true })
+  @Column({ type: 'json', nullable: true })
   images: string[];
 
-  @Column()
-  created_at: Date;
+  @Column({ name: 'created_at', type: 'date' })
+  createdAt!: Date;
 
   @OneToMany(() => Dog, dog => dog.shelter)
   dogs: Dog[];

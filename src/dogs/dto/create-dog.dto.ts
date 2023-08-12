@@ -1,9 +1,5 @@
-import { ArrayNotEmpty, IsBoolean, IsDate, IsDateString, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
-import { Color } from "../enums/color.enum";
-import { Size } from "../enums/size.enum";
-import { CoatLength } from "../enums/coat-length.enum";
-import { Gender } from "../enums/gender.enum";
-import { Shelter } from "src/shelters/entities/shelter.entity";
+import { ArrayNotEmpty, IsBoolean, IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
+import { CoatLength, Color, Gender, Size } from "../entities/dog.entity";
 
 export class CreateDogDto {
   @IsString()
@@ -15,7 +11,7 @@ export class CreateDogDto {
 
   @IsDate()
   @IsOptional()
-  readonly birthdate: Date;
+  readonly birthdate: Date; c
 
   @ArrayNotEmpty()
   readonly color: Color[];
@@ -27,7 +23,7 @@ export class CreateDogDto {
   readonly gender: Gender;
 
   @IsNotEmpty()
-  readonly coat_length: CoatLength;
+  readonly coatLength: CoatLength;
 
   @ArrayNotEmpty()
   @IsUrl({}, { each: true })
@@ -39,21 +35,13 @@ export class CreateDogDto {
 
   @IsNotEmpty()
   @IsBoolean()
-  readonly is_active: boolean;
+  readonly isActive: boolean;
 
   @IsNotEmpty()
   @IsNumber()
-  readonly shelter_id: number;
+  readonly shelterId: number;
 
   @IsNotEmpty()
   @IsDate()
-  readonly created_at: Date;
-
-  @IsOptional()
-  @IsDate()
-  readonly updated_at: Date;
-
-  @IsOptional()
-  @IsDate()
-  readonly deleted_at: Date;
+  readonly createdAt: Date;
 }

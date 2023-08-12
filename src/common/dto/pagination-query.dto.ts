@@ -1,5 +1,5 @@
 import { IsOptional, IsPositive } from "class-validator";
-import { Size } from "src/dogs/enums/size.enum";
+import { Size } from "src/dogs/entities/dog.entity";
 
 export class PaginationQueryDto {
   @IsOptional()

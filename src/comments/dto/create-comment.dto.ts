@@ -3,26 +3,14 @@ import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-valida
 export class CreateCommentDto {
   @IsNumber()
   @IsNotEmpty()
-  readonly user_id: number;
+  readonly userId: number;
 
   @IsNumber()
   @IsNotEmpty()
-  readonly post_id: number;
+  readonly postId: number;
 
   @IsString()
   @IsNotEmpty()
   readonly content: string;
-
-  @IsDate()
-  @IsNotEmpty()
-  readonly created_at: Date;
-
-  @IsDate()
-  @IsOptional()
-  readonly updated_at?: Date;
-
-  @IsDate()
-  @IsOptional()
-  readonly deleted_at?: Date;
 }
 

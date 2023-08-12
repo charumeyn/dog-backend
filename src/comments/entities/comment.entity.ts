@@ -6,7 +6,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGene
 @Entity()
 export class Comment {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @ManyToOne(() => Post, (post) => post.comments, {
     cascade: true
@@ -23,12 +23,12 @@ export class Comment {
   @Column()
   content: string;
 
-  @Column()
-  created_at: Date;
+  @Column({ name: 'created_at', type: 'date' })
+  createdAt: Date;
 
   @Column({ nullable: true })
-  updated_at?: Date | null;
+  updated_at?: Date;
 
   @Column({ nullable: true })
-  deleted_at?: Date | null;
+  deleted_at?: Date;
 }

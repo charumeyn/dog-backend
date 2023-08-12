@@ -1,35 +1,39 @@
 import { Exclude } from "class-transformer";
 import { Address } from "src/addresses/entities/address.entity";
 import { Comment } from "src/comments/entities/comment.entity";
-import { UserType } from "src/common/enums/user-type.enum";
 import { Donation } from "src/donations/entities/donation.entity";
 import { Fundraiser } from "src/fundraisers/entities/fundraiser.entity";
 import { Shelter } from "src/shelters/entities/shelter.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+
+export enum UserType {
+  Member = "MEMEBR",
+  Admin = "ADMIN",
+}
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column({ type: 'varchar' })
+  @Column()
   public email!: string;
 
   @Exclude()
-  @Column({ type: 'varchar' })
+  @Column()
   public password!: string;
 
-  @Column({ type: 'timestamp', nullable: true, default: null })
-  public last_login_at: Date | null;
+  @Column({ name: 'last_login_date', type: 'timestamp', nullable: true, default: null })
+  public lastLoginDate: Date | null;
 
-  @Column({ type: 'varchar' })
-  public first_name: string | null;
+  @Column({ name: 'first_name' })
+  public firstName: string;
 
-  @Column({ type: 'varchar' })
-  public last_name: string | null;
+  @Column({ name: 'last_name' })
+  public lastName: string;
 
-  @Column({ type: 'varchar', nullable: true })
-  public phone: string | null;
+  @Column({ nullable: true })
+  public phone?: string;
 
   @Column({ nullable: true, default: UserType.Member })
   public type: UserType;

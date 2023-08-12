@@ -1,19 +1,18 @@
 import { IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import { PaymentGateway } from "src/common/enums/payment-gateway.enum";
-import { RecipientType } from "src/common/enums/recipient-type.enum";
+import { PaymentGateway, RecipientType } from "../entities/donation.entity";
 
 export class CreateDonationDto {
   @IsNotEmpty()
   @IsString()
-  readonly transaction_id: string;
+  readonly transactionId: string;
 
   @IsOptional()
   @IsString()
-  readonly transaction_firstname: string;
+  readonly transactionFirstName: string;
 
   @IsOptional()
   @IsString()
-  readonly transaction_lastname: string;
+  readonly transactionLastName: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -21,11 +20,11 @@ export class CreateDonationDto {
 
   @IsNotEmpty()
   @IsString()
-  readonly type: RecipientType;
+  readonly recepientType: RecipientType;
 
   @IsNotEmpty()
   @IsString()
-  readonly payment_gateway: PaymentGateway;
+  readonly paymentGateway: PaymentGateway;
 
   @IsNotEmpty()
   @IsString()
@@ -37,21 +36,21 @@ export class CreateDonationDto {
 
   @IsOptional()
   @IsNumber()
-  readonly dog_id: number;
+  readonly dogId: number;
 
   @IsOptional()
   @IsNumber()
-  readonly fundraiser_id: number;
+  readonly fundraiserId: number;
 
   @IsOptional()
   @IsNumber()
-  readonly user_id: number;
+  readonly userId: number;
 
   @IsNotEmpty()
   @IsNumber()
-  readonly donor_id: number;
+  readonly donorId: number;
 
   @IsNotEmpty()
   @IsDate()
-  readonly created_at: Date;
+  readonly createdAt: Date;
 }

@@ -1,12 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFundraiserDto } from './dto/create-fundraiser.dto';
 import { UpdateFundraiserDto } from './dto/update-fundraiser.dto';
-import { Fundraiser } from './entities/fundraiser.entity';
+import { Fundraiser, FundraiserType } from './entities/fundraiser.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Dog } from 'src/dogs/entities/dog.entity';
-import { FundraiserType } from 'src/common/enums/fundraiser-type.enum';
 import { Shelter } from 'src/shelters/entities/shelter.entity';
 import { User } from 'src/users/entities/user.entity';
 
@@ -28,19 +27,19 @@ export class FundraisersService {
 
     if (dto.type === FundraiserType.Dog) {
       fundraiser.dog = await this.dogRepository.findOneOrFail({
-        where: { id: dto.dog_id }
+        where: { id: dto.dogId }
       })
     }
 
     if (dto.type === FundraiserType.Shelter) {
       fundraiser.shelter = await this.shelterRepository.findOneOrFail({
-        where: { id: dto.shelter_id }
+        where: { id: dto.shelterId }
       })
     }
 
     if (dto.type === FundraiserType.User) {
       fundraiser.user = await this.userRepository.findOneOrFail({
-        where: { id: dto.user_id }
+        where: { id: dto.userId }
       })
     }
 
@@ -82,20 +81,20 @@ export class FundraisersService {
 
   async update(id: number, dto: UpdateFundraiserDto) {
     const dog = await this.dogRepository.findOne({
-      where: { id: dto.dog_id }
+      where: { id: dto.dogId }
     })
     const shelter = await this.shelterRepository.findOne({
-      where: { id: dto.shelter_id }
+      where: { id: dto.shelterId }
     })
     const user = await this.userRepository.findOne({
-      where: { id: dto.user_id }
+      where: { id: dto.userId }
     })
     const fundraiser = await this.fundraiserRepository.preload({
       id: +id,
       ...dto,
-      dog: dto.dog_id ? dog : null,
-      shelter: dto.shelter_id ? shelter : null,
-      user: dto.user_id ? user : null,
+      dog: dto.dogId ? dog : null,
+      shelter: dto.shelterId ? shelter : null,
+      user: dto.userId ? user : null,
     })
 
     if (!fundraiser) {

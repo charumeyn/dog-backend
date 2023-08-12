@@ -24,8 +24,8 @@ export class UsersService {
     })
 
     const user = await this.usersRepository.create({
-      first_name: dto.first_name,
-      last_name: dto.last_name,
+      firstName: dto.firstName,
+      lastName: dto.lastName,
       email: dto.email,
       password: hashedPassword
     })
@@ -75,7 +75,11 @@ export class UsersService {
       const data = await this.jwtService.verifyAsync(cookie);
 
       if (!data) {
-        throw new UnauthorizedException();
+        // throw new UnauthorizedException();
+        return {
+          success: false,
+          data: "You are logged out"
+        };
       }
 
       const user = await this.usersRepository.findOne({
@@ -90,8 +94,14 @@ export class UsersService {
         success: true,
         data: account
       };
-    } catch (e) {
-      throw new UnauthorizedException();
+    }
+
+    catch (e) {
+      // throw new UnauthorizedException();
+      return {
+        success: false,
+        data: "You are logged out"
+      };
     }
   }
 

@@ -1,5 +1,5 @@
 import { IsOptional, IsPositive } from "class-validator";
-import { Size } from "../enums/size.enum";
+import { Size } from "../entities/dog.entity";
 
 export class FilterDogsDto {
   @IsOptional()

@@ -5,10 +5,7 @@ import { Repository } from 'typeorm';
 import { Dog } from './entities/dog.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { FilterDogsDto } from './dto/filter-dogs.dto';
-import { Size } from './enums/size.enum';
 import { Shelter } from 'src/shelters/entities/shelter.entity';
-import { Post } from 'src/posts/entities/post.entity';
 import { Donation } from 'src/donations/entities/donation.entity';
 
 @Injectable()
@@ -20,13 +17,13 @@ export class DogsService {
   @InjectRepository(Donation)
   private readonly donationRepository: Repository<Donation>
 
-  async create(createDogDto: CreateDogDto) {
+  async create(dto: CreateDogDto) {
     const dog = this.dogRepository.create({
-      ...createDogDto
+      ...dto
     })
 
     dog.shelter = await this.shelterRepository.findOneOrFail({
-      where: { id: createDogDto.shelter_id }
+      where: { id: dto.shelterId }
     })
 
     await this.dogRepository.save(dog);
@@ -70,10 +67,10 @@ export class DogsService {
     return dog;
   }
 
-  async update(id: number, updateDogDto: UpdateDogDto) {
+  async update(id: number, dto: UpdateDogDto) {
     const dog = await this.dogRepository.preload({
       id: +id,
-      ...updateDogDto
+      ...dto
     })
 
     if (!dog) {

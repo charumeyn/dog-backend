@@ -24,8 +24,8 @@ export class FundraisersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFundraiserDto: UpdateFundraiserDto) {
-    return this.fundraisersService.update(+id, updateFundraiserDto);
+  update(@Param('id') id: string, @Body() dto: UpdateFundraiserDto) {
+    return this.fundraisersService.update(+id, dto);
   }
 
   @Delete(':id')

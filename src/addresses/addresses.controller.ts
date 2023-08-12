@@ -8,8 +8,8 @@ export class AddressesController {
   constructor(private readonly addressesService: AddressesService) { }
 
   @Post()
-  create(@Body() createAddressDto: CreateAddressDto) {
-    return this.addressesService.create(createAddressDto);
+  create(@Body() dto: CreateAddressDto) {
+    return this.addressesService.create(dto);
   }
 
   @Get(':id')
@@ -18,8 +18,8 @@ export class AddressesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAddressDto: UpdateAddressDto) {
-    return this.addressesService.update(+id, updateAddressDto);
+  update(@Param('id') id: string, @Body() dto: UpdateAddressDto) {
+    return this.addressesService.update(+id, dto);
   }
 
   @Delete(':id')

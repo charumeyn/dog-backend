@@ -17,17 +17,16 @@ export class CommentsService {
   @InjectRepository(User)
   private readonly userRepository: Repository<User>
 
-  async create(createCommentDto: CreateCommentDto) {
-    const date = new Date();
+  async create(dto: CreateCommentDto) {
     const getPost = await this.postRepository.findOneOrFail({
-      where: { id: createCommentDto.post_id },
+      where: { id: dto.postId },
     })
     const getUser = await this.userRepository.findOneOrFail({
-      where: { id: createCommentDto.user_id },
+      where: { id: dto.userId },
     })
     const comment = this.commentRepository.create({
-      content: createCommentDto.content,
-      created_at: date,
+      content: dto.content,
+      createdAt: new Date(),
       post: getPost,
       user: getUser,
     })

@@ -1,5 +1,5 @@
 import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, IsUrl } from "class-validator";
-import { FundraiserType } from "src/common/enums/fundraiser-type.enum";
+import { FundraiserType } from "../entities/fundraiser.entity";
 
 export class CreateFundraiserDto {
   @IsNotEmpty()
@@ -24,44 +24,48 @@ export class CreateFundraiserDto {
 
   @IsNotEmpty()
   @IsNumber()
-  readonly goal_amount: number;
+  readonly goalAmount: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  readonly currentAmount: number;
 
   @IsNotEmpty()
   @IsDate()
-  readonly starts_at: Date;
+  readonly startsAt: Date;
 
   @IsOptional()
   @IsDate()
-  readonly ends_at: Date;
+  readonly endsAt: Date;
 
   @IsNotEmpty()
   @IsDate()
-  readonly created_at: Date;
+  readonly createdAt: Date;
 
   @IsOptional()
   @IsDate()
-  readonly updated_at: Date;
+  readonly updatedAt: Date;
 
   @IsOptional()
   @IsDate()
-  readonly deleted_at: Date;
+  readonly deletedAt: Date;
 
   @IsOptional()
   @IsNumber()
-  readonly created_by: number;
+  readonly creaetdBy: number;
 
   @IsNotEmpty()
   readonly type: FundraiserType;
 
   @IsOptional()
   @IsNumber()
-  readonly shelter_id: number;
+  readonly shelterId: number;
 
   @IsOptional()
   @IsNumber()
-  readonly user_id: number;
+  readonly userId: number;
 
   @IsOptional()
   @IsNumber()
-  readonly dog_id: number;
+  readonly dogId: number;
 }

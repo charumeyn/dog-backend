@@ -3,11 +3,11 @@ import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 export class RegisterDto {
   @IsString()
   @IsNotEmpty()
-  readonly first_name: string;
+  readonly firstName: string;
 
   @IsString()
   @IsNotEmpty()
-  readonly last_name: string;
+  readonly lastName: string;
 
   @IsEmail()
   @IsNotEmpty()

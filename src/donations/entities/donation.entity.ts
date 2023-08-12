@@ -1,37 +1,50 @@
-import { RecipientType } from "src/common/enums/recipient-type.enum";
 import { Dog } from "src/dogs/entities/dog.entity";
 import { Fundraiser } from "src/fundraisers/entities/fundraiser.entity";
 import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
+export enum PaymentGateway {
+  Paypal = "paypal",
+  Stripe = "stripe"
+}
+
+export enum RecipientType {
+  Dog = "dog",
+  Fundraiser = "fundraiser",
+  User = "user"
+}
+
 @Entity()
 export class Donation {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  email: string;
+  email!: string;
+
+  @Column({ name: 'transaction_id' })
+  transactionId!: string;
+
+  @Column({ name: 'transaction_firstname' })
+  transactionFirstName!: string;
+
+  @Column({ name: 'transaction_lastname' })
+  transactionLastName!: string;
+
+  @Column({ name: 'payment_gateway', type: 'enum', enum: PaymentGateway })
+  paymentGateway!: PaymentGateway;
+
+  @Column({ name: 'recepient_type', type: 'enum', enum: RecipientType })
+  recepientType!: RecipientType;
 
   @Column()
-  transaction_id: string;
+  status!: string;
 
   @Column()
-  transaction_firstname: string;
+  amount!: number;
 
-  @Column()
-  transaction_lastname: string;
-
-  @Column()
-  payment_gateway: string;
-
-  @Column()
-  type: RecipientType;
-
-  @Column()
-  status: string;
-
-  @Column()
-  amount: number
+  @Column({ name: 'created_at', type: 'date' })
+  createdAt: Date;
 
   @ManyToOne(() => Dog, (dog) => dog.donations, {
     cascade: true,
@@ -56,7 +69,4 @@ export class Donation {
   })
   @JoinColumn({ name: 'donor_id', referencedColumnName: 'id' })
   donor: User;
-
-  @Column()
-  created_at: Date;
 }
