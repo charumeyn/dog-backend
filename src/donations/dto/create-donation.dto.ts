@@ -1,5 +1,5 @@
-import { IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import { PaymentGateway, RecipientType } from "../entities/donation.entity";
+import { IsDate, IsEmail, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { DonationType, PaymentGateway, RecipientType } from "../entities/donation.entity";
 
 export class CreateDonationDto {
   @IsNotEmpty()
@@ -19,11 +19,15 @@ export class CreateDonationDto {
   readonly email: string;
 
   @IsNotEmpty()
-  @IsString()
-  readonly recepientType: RecipientType;
+  @IsEnum(DonationType)
+  readonly recipientType: RecipientType;
 
   @IsNotEmpty()
-  @IsString()
+  @IsEnum(DonationType)
+  readonly donationType: DonationType;
+
+  @IsNotEmpty()
+  @IsEnum(PaymentGateway)
   readonly paymentGateway: PaymentGateway;
 
   @IsNotEmpty()
@@ -40,17 +44,17 @@ export class CreateDonationDto {
 
   @IsOptional()
   @IsNumber()
-  readonly fundraiserId: number;
+  readonly shelterId: number;
 
   @IsOptional()
   @IsNumber()
   readonly userId: number;
 
+  @IsOptional()
+  @IsNumber()
+  readonly fundraiserId: number;
+
   @IsNotEmpty()
   @IsNumber()
   readonly donorId: number;
-
-  @IsNotEmpty()
-  @IsDate()
-  readonly createdAt: Date;
 }

@@ -19,7 +19,8 @@ export class DogsService {
 
   async create(dto: CreateDogDto) {
     const dog = this.dogRepository.create({
-      ...dto
+      ...dto,
+      createdAt: new Date()
     })
 
     dog.shelter = await this.shelterRepository.findOneOrFail({

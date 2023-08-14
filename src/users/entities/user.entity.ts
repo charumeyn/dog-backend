@@ -7,8 +7,9 @@ import { Shelter } from "src/shelters/entities/shelter.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 export enum UserType {
-  Member = "MEMEBR",
-  Admin = "ADMIN",
+  User = "user",
+  Admin = "admin",
+  Shelter = "shelter",
 }
 
 @Entity()
@@ -35,7 +36,7 @@ export class User {
   @Column({ nullable: true })
   public phone?: string;
 
-  @Column({ nullable: true, default: UserType.Member })
+  @Column({ nullable: true, default: UserType.User })
   public type: UserType;
 
   @OneToOne(() => Address)

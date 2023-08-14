@@ -29,6 +29,7 @@ export class SheltersService {
       where: { id },
       relations: {
         dogs: true,
+        donations: true,
         fundraisers: true,
         address: true,
         users: true,

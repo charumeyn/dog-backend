@@ -11,7 +11,7 @@ export class CreateDogDto {
 
   @IsDate()
   @IsOptional()
-  readonly birthdate: Date; c
+  readonly birthdate: Date;
 
   @ArrayNotEmpty()
   readonly color: Color[];
@@ -24,6 +24,9 @@ export class CreateDogDto {
 
   @IsNotEmpty()
   readonly coatLength: CoatLength;
+
+  @IsNotEmpty()
+  readonly mainImage: string;
 
   @ArrayNotEmpty()
   @IsUrl({}, { each: true })
@@ -40,8 +43,4 @@ export class CreateDogDto {
   @IsNotEmpty()
   @IsNumber()
   readonly shelterId: number;
-
-  @IsNotEmpty()
-  @IsDate()
-  readonly createdAt: Date;
 }

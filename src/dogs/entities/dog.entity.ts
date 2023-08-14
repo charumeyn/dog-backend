@@ -56,6 +56,9 @@ export class Dog {
   @Column({ name: 'coat_length', enum: CoatLength })
   coatLength!: CoatLength;
 
+  @Column({ name: 'main_image' })
+  mainImage!: string;
+
   @Column({ type: 'json' })
   images!: string[];
 

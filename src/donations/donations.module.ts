@@ -6,9 +6,10 @@ import { Donation } from './entities/donation.entity';
 import { Fundraiser } from 'src/fundraisers/entities/fundraiser.entity';
 import { Dog } from 'src/dogs/entities/dog.entity';
 import { User } from 'src/users/entities/user.entity';
+import { Shelter } from 'src/shelters/entities/shelter.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Donation, User, Dog, Fundraiser])],
+  imports: [TypeOrmModule.forFeature([Donation, User, Dog, Shelter, Fundraiser])],
   controllers: [DonationsController],
   providers: [DonationsService]
 })

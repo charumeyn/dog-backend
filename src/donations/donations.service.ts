@@ -3,11 +3,12 @@ import { CreateDonationDto } from './dto/create-donation.dto';
 import { UpdateDonationDto } from './dto/update-donation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Donation, RecipientType } from './entities/donation.entity';
-import { Repository } from 'typeorm';
+import { Repository, TreeLevelColumn } from 'typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Dog } from 'src/dogs/entities/dog.entity';
 import { Fundraiser } from 'src/fundraisers/entities/fundraiser.entity';
 import { User } from 'src/users/entities/user.entity';
+import { Shelter } from 'src/shelters/entities/shelter.entity';
 
 @Injectable()
 export class DonationsService {
@@ -17,27 +18,30 @@ export class DonationsService {
   private readonly userRepository: Repository<User>
   @InjectRepository(Dog)
   private readonly dogRepository: Repository<Dog>
+  @InjectRepository(Shelter)
+  private readonly shelterRepository: Repository<Shelter>
   @InjectRepository(Fundraiser)
-  private readonly fundRaiserRepository: Repository<Fundraiser>
+  private readonly fundraiserRepository: Repository<Fundraiser>
 
   async create(dto: CreateDonationDto) {
     const donation = this.donationRepository.create({
       ...dto,
+      createdAt: new Date()
     })
 
-    if (dto.recepientType === RecipientType.Dog) {
+    if (dto.recipientType === RecipientType.Dog) {
       donation.dog = await this.dogRepository.findOneOrFail({
         where: { id: dto.dogId }
       })
     }
 
-    if (dto.recepientType === RecipientType.Fundraiser) {
-      donation.fundraiser = await this.fundRaiserRepository.findOneOrFail({
-        where: { id: dto.fundraiserId }
+    if (dto.recipientType === RecipientType.Shelter) {
+      donation.shelter = await this.shelterRepository.findOneOrFail({
+        where: { id: dto.shelterId }
       })
     }
 
-    if (dto.recepientType === RecipientType.User) {
+    if (dto.recipientType === RecipientType.User) {
       donation.user = await this.userRepository.findOneOrFail({
         where: { id: dto.userId }
       })
@@ -63,8 +67,9 @@ export class DonationsService {
       take: limit,
       relations: {
         dog: true,
-        fundraiser: true,
+        shelter: true,
         user: true,
+        fundraiser: true,
         donor: true
       }
     })
@@ -92,11 +97,14 @@ export class DonationsService {
     const dog = await this.dogRepository.findOne({
       where: { id: dto.dogId }
     })
-    const fundraiser = await this.fundRaiserRepository.findOne({
-      where: { id: dto.fundraiserId }
+    const shelter = await this.shelterRepository.findOne({
+      where: { id: dto.shelterId }
     })
     const user = await this.userRepository.findOne({
       where: { id: dto.userId }
+    })
+    const fundraiser = await this.fundraiserRepository.findOne({
+      where: { id: dto.fundraiserId }
     })
     const donor = await this.userRepository.findOne({
       where: { id: dto.donorId }

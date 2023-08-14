@@ -1,5 +1,6 @@
 import { Address } from "src/addresses/entities/address.entity";
 import { Dog } from "src/dogs/entities/dog.entity";
+import { Donation } from "src/donations/entities/donation.entity";
 import { Fundraiser } from "src/fundraisers/entities/fundraiser.entity";
 import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -45,4 +46,7 @@ export class Shelter {
 
   @OneToMany(() => User, user => user.shelter)
   users: User[];
+
+  @OneToMany(() => Donation, donation => donation.shelter)
+  donations: Donation[];
 }
