@@ -60,6 +60,7 @@ export class DogsService {
         shelter: true,
         posts: true,
         donations: true,
+        comments: true,
       },
     })
     if (!dog) {

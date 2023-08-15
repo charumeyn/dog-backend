@@ -81,6 +81,12 @@ export class CommentsService {
   async findOne(id: number) {
     const comment = await this.commentRepository.findOneOrFail({
       where: { id },
+      relations: {
+        post: true,
+        dog: true,
+        fundraiser: true,
+        user: true,
+      },
     })
     if (!comment) {
       throw new NotFoundException(`Comment with ID ${id} was not found`)
@@ -88,10 +94,10 @@ export class CommentsService {
     return comment;
   }
 
-  async update(id: number, updateCommentDto: UpdateCommentDto) {
+  async update(id: number, dto: UpdateCommentDto) {
     const comment = await this.commentRepository.preload({
       id: +id,
-      ...updateCommentDto
+      ...dto
     })
     if (!comment) {
       throw new NotFoundException(`Comment with ${id} not found`)
