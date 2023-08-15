@@ -1,3 +1,4 @@
+import { Comment } from "src/comments/entities/comment.entity";
 import { Dog } from "src/dogs/entities/dog.entity";
 import { Donation } from "src/donations/entities/donation.entity";
 import { Shelter } from "src/shelters/entities/shelter.entity";
@@ -77,5 +78,8 @@ export class Fundraiser {
 
   @OneToMany(() => Donation, (donation) => donation.fundraiser)
   donations: Donation[];
+
+  @OneToMany(() => Comment, (comment) => comment.fundraiser)
+  comments: Comment[];
 }
 
