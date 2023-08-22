@@ -36,7 +36,7 @@ export class DogsService {
   }
 
   async findAll(paginationQuery: PaginationQueryDto) {
-    const { limit, offset, size } = paginationQuery;
+    const { limit, offset, size, color, gender, breed } = paginationQuery;
     const dogs = await this.dogRepository.find({
       skip: offset,
       take: limit,
@@ -46,7 +46,9 @@ export class DogsService {
         donations: true,
       },
       where: {
-        size: size
+        size: size,
+        color: color,
+        gender: gender,
       }
     })
 

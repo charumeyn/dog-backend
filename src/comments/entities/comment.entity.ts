@@ -43,7 +43,7 @@ export class Comment {
   content: string;
 
   @Column({ name: 'comment_type', type: 'enum', enum: CommentType })
-  commentType: Date;
+  commentType: CommentType;
 
   @Column({ name: 'created_at', type: 'date' })
   createdAt: Date;

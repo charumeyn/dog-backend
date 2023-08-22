@@ -8,11 +8,15 @@ export class CreateFundraiserDto {
 
   @IsNotEmpty()
   @IsString()
+  readonly description: string;
+
+  @IsNotEmpty()
+  @IsString()
   readonly content: string;
 
   @IsNotEmpty()
   @IsUrl()
-  readonly main_image: string;
+  readonly mainImage: string;
 
   @IsNotEmpty()
   @IsUrl({}, { each: true })
@@ -27,10 +31,6 @@ export class CreateFundraiserDto {
   readonly goalAmount: number;
 
   @IsNotEmpty()
-  @IsNumber()
-  readonly currentAmount: number;
-
-  @IsNotEmpty()
   @IsDate()
   readonly startsAt: Date;
 
@@ -38,21 +38,9 @@ export class CreateFundraiserDto {
   @IsDate()
   readonly endsAt: Date;
 
-  @IsNotEmpty()
-  @IsDate()
-  readonly createdAt: Date;
-
-  @IsOptional()
-  @IsDate()
-  readonly updatedAt: Date;
-
-  @IsOptional()
-  @IsDate()
-  readonly deletedAt: Date;
-
   @IsOptional()
   @IsNumber()
-  readonly creaetdBy: number;
+  readonly createdBy: number;
 
   @IsNotEmpty()
   readonly type: FundraiserType;

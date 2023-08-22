@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDonationDto } from './dto/create-donation.dto';
 import { UpdateDonationDto } from './dto/update-donation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Donation, RecipientType } from './entities/donation.entity';
+import { Donation, DonationType, RecipientType } from './entities/donation.entity';
 import { Repository, TreeLevelColumn } from 'typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Dog } from 'src/dogs/entities/dog.entity';
@@ -47,6 +47,12 @@ export class DonationsService {
       })
     }
 
+    if (dto.donationType === DonationType.Fundraiser) {
+      donation.fundraiser = await this.fundraiserRepository.findOneOrFail({
+        where: { id: dto.fundraiserId }
+      })
+    }
+
     donation.donor = await this.userRepository.findOneOrFail({
       where: { id: dto.donorId }
     })
@@ -82,8 +88,9 @@ export class DonationsService {
       where: { id },
       relations: {
         dog: true,
-        fundraiser: true,
         user: true,
+        shelter: true,
+        fundraiser: true,
         donor: true
       }
     })
@@ -113,8 +120,9 @@ export class DonationsService {
       id: +id,
       ...dto,
       dog: dto.dogId ? dog : null,
-      fundraiser: dto.fundraiserId ? fundraiser : null,
       user: dto.userId ? user : null,
+      shelter: dto.shelterId ? shelter : null,
+      fundraiser: dto.fundraiserId ? fundraiser : null,
       donor: donor
     })
 

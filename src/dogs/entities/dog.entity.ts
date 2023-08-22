@@ -8,7 +8,12 @@ import { Comment } from "src/comments/entities/comment.entity";
 export enum Color {
   Black = "black",
   White = "white",
+  Brown = "brown",
+  Red = "red",
+  Gold = "gold",
   Gray = "gray",
+  Cream = "cream",
+  Yellow = "yellow"
 }
 
 export enum Size {
@@ -39,14 +44,14 @@ export class Dog {
   @Column()
   name!: string;
 
-  @Column({ type: 'json' })
-  breed!: number[];
+  @Column({ type: "simple-array" })
+  breed!: string[];
 
   @Column({ nullable: true })
   birthdate?: Date;
 
-  @Column({ type: 'json' })
-  color!: Color[];
+  @Column({ type: "simple-array", nullable: true })
+  color: Color[];
 
   @Column({ type: 'enum', enum: Size })
   size!: Size;

@@ -19,11 +19,14 @@ export class Fundraiser {
   @Column()
   title!: string;
 
+  @Column({ nullable: true })
+  description?: string;
+
   @Column()
   content!: string;
 
-  @Column({ nullable: true })
-  main_image?: string;
+  @Column({ name: 'main_image' })
+  mainImage?: string;
 
   @Column({ type: 'json' })
   images: string[];

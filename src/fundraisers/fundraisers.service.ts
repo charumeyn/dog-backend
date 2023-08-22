@@ -22,7 +22,8 @@ export class FundraisersService {
 
   async create(dto: CreateFundraiserDto) {
     const fundraiser = this.fundraiserRepository.create({
-      ...dto
+      ...dto,
+      createdAt: new Date(),
     })
 
     if (dto.type === FundraiserType.Dog) {
@@ -59,6 +60,7 @@ export class FundraisersService {
       relations: {
         shelter: true,
         donations: true,
+        comments: true,
       }
     })
 
@@ -71,6 +73,7 @@ export class FundraisersService {
       relations: {
         shelter: true,
         donations: true,
+        comments: true,
       }
     })
     if (!fundraiser) {

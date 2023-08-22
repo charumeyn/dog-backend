@@ -46,7 +46,14 @@ export class UsersService {
 
   async login(dto: LoginDto, response: Response) {
     const user = await this.usersRepository.findOne({
-      where: { email: dto.email }
+      where: { email: dto.email },
+      relations: {
+        address: true,
+        shelter: true,
+        donations: true,
+        fundraisers: true,
+        comments: true,
+      },
     })
     if (!user) {
       throw new BadRequestException('Invalid credentials');
@@ -60,11 +67,11 @@ export class UsersService {
 
     response.cookie('jwt', jwt, { httpOnly: true });
 
-    const { password, ...result } = user;
+    const { password, ...account } = user;
 
     return {
       success: true,
-      data: user,
+      data: account,
     };
   }
 
@@ -85,6 +92,13 @@ export class UsersService {
       const user = await this.usersRepository.findOne({
         where: {
           id: Number(data['id'])
+        },
+        relations: {
+          address: true,
+          shelter: true,
+          donations: true,
+          fundraisers: true,
+          comments: true,
         },
       })
 

@@ -7,7 +7,7 @@ export class CreateDogDto {
   readonly name: string;
 
   @ArrayNotEmpty()
-  readonly breed: number[];
+  readonly breed: string[];
 
   @IsDate()
   @IsOptional()
