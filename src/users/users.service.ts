@@ -69,10 +69,7 @@ export class UsersService {
 
     const { password, ...account } = user;
 
-    return {
-      success: true,
-      data: account,
-    };
+    return account;
   }
 
   async account(request: Request) {
