@@ -57,4 +57,7 @@ export class User {
 
   @OneToMany(() => Fundraiser, fundraiser => fundraiser.user,)
   fundraisers: Fundraiser[];
+
+  @OneToMany(() => Fundraiser, createdFundraiser => createdFundraiser.createdByUser,)
+  createdFundraisers: Fundraiser[];
 }

@@ -61,6 +61,8 @@ export class FundraisersService {
         shelter: true,
         donations: true,
         comments: true,
+        dog: true,
+        user: true,
       }
     })
 
@@ -74,6 +76,8 @@ export class FundraisersService {
         shelter: true,
         donations: true,
         comments: true,
+        dog: true,
+        user: true,
       }
     })
     if (!fundraiser) {

@@ -47,13 +47,6 @@ export class UsersService {
   async login(dto: LoginDto, response: Response) {
     const user = await this.usersRepository.findOne({
       where: { email: dto.email },
-      relations: {
-        address: true,
-        shelter: true,
-        donations: true,
-        fundraisers: true,
-        comments: true,
-      },
     })
     if (!user) {
       throw new BadRequestException('Invalid credentials');
@@ -69,7 +62,10 @@ export class UsersService {
 
     const { password, ...account } = user;
 
-    return account;
+    return {
+      success: true,
+      data: account
+    };
   }
 
   async account(request: Request) {
@@ -95,16 +91,14 @@ export class UsersService {
           shelter: true,
           donations: true,
           fundraisers: true,
+          createdFundraisers: true,
           comments: true,
         },
       })
 
       const { password, ...account } = user;
 
-      return {
-        success: true,
-        data: account
-      };
+      return account;
     }
 
     catch (e) {

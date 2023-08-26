@@ -55,9 +55,6 @@ export class Fundraiser {
   @Column({ name: 'deleted_at', nullable: true })
   deletedAt?: Date;
 
-  @Column({ name: 'created_by', nullable: true })
-  createdBy: number;
-
   @ManyToOne(() => Shelter, (shelter) => shelter.fundraisers, {
     cascade: true,
     nullable: true
@@ -78,6 +75,16 @@ export class Fundraiser {
   })
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
+
+  @ManyToOne(() => User, (createdByUser) => createdByUser.fundraisers, {
+    cascade: true,
+    nullable: true
+  })
+  @JoinColumn({ name: 'created_by_id', referencedColumnName: 'id' })
+  createdByUser: User;
+
+  // @Column({ name: 'created_by', nullable: true })
+  // createdBy: number;
 
   @OneToMany(() => Donation, (donation) => donation.fundraiser)
   donations: Donation[];
