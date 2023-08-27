@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString } from "class-validator";
+import { UserType } from "../entities/user.entity";
 
 export class RegisterDto {
   @IsString()
@@ -16,4 +17,7 @@ export class RegisterDto {
   @IsString()
   @IsNotEmpty()
   readonly password: string;
+
+  @IsNotEmpty()
+  readonly type: UserType;
 }

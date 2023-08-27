@@ -1,5 +1,5 @@
 import { BadRequestException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { User } from './entities/user.entity';
+import { User, UserType } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RegisterDto } from './dto/register.dto';
@@ -27,7 +27,8 @@ export class UsersService {
       firstName: dto.firstName,
       lastName: dto.lastName,
       email: dto.email,
-      password: hashedPassword
+      password: hashedPassword,
+      type: dto.type
     })
 
     await this.usersRepository.save(user);

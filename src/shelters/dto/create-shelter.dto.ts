@@ -5,13 +5,13 @@ export class CreateShelterDto {
   @IsNotEmpty()
   readonly name: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  readonly addressId: number;
+  readonly description: string;
 
+  @IsString()
   @IsNotEmpty()
-  @IsBoolean()
-  readonly isActive: boolean;
+  readonly content: string;
 
   @IsNotEmpty()
   @IsUrl()
@@ -20,4 +20,8 @@ export class CreateShelterDto {
   @IsOptional()
   @IsUrl({}, { each: true })
   readonly images: string[];
+
+  @IsNotEmpty()
+  @IsNumber()
+  readonly userId: number;
 }

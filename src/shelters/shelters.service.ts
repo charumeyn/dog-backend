@@ -32,7 +32,7 @@ export class SheltersService {
         donations: true,
         fundraisers: true,
         address: true,
-        users: true,
+        user: true,
       },
     })
     if (!shelter) {

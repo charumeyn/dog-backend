@@ -44,11 +44,14 @@ export class User {
   @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   public address?: Address;
 
-  @ManyToOne(() => Shelter, (shelter) => shelter.users, {
-    cascade: true
-  })
-  @JoinColumn({ name: 'shelter_id', referencedColumnName: 'id' })
+  @OneToOne(() => Shelter, shelter => shelter.user)
   shelter: Shelter;
+
+  // @ManyToOne(() => Shelter, (shelter) => shelter.users, {
+  //   cascade: true
+  // })
+  // @JoinColumn({ name: 'shelter_id', referencedColumnName: 'id' })
+  // shelter: Shelter;
 
   @OneToMany(() => Dog, dog => dog.user)
   dogs: Dog[];
