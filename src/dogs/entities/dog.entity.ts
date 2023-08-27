@@ -4,6 +4,7 @@ import { Post } from "src/posts/entities/post.entity";
 import { Donation } from "src/donations/entities/donation.entity";
 import { Fundraiser } from "src/fundraisers/entities/fundraiser.entity";
 import { Comment } from "src/comments/entities/comment.entity";
+import { User } from "src/users/entities/user.entity";
 
 export enum Color {
   Black = "black",
@@ -88,6 +89,12 @@ export class Dog {
   })
   @JoinColumn({ name: 'shelter_id', referencedColumnName: 'id' })
   shelter: Shelter;
+
+  @ManyToOne(() => User, (user) => user.dogs, {
+    cascade: true
+  })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  user: User;
 
   @OneToMany(() => Post, post => post.dog,)
   posts: Post[];

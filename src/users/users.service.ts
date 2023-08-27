@@ -93,6 +93,7 @@ export class UsersService {
           fundraisers: true,
           createdFundraisers: true,
           comments: true,
+          dogs: true,
         },
       })
 

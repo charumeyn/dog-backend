@@ -1,6 +1,7 @@
 import { Exclude } from "class-transformer";
 import { Address } from "src/addresses/entities/address.entity";
 import { Comment } from "src/comments/entities/comment.entity";
+import { Dog } from "src/dogs/entities/dog.entity";
 import { Donation } from "src/donations/entities/donation.entity";
 import { Fundraiser } from "src/fundraisers/entities/fundraiser.entity";
 import { Shelter } from "src/shelters/entities/shelter.entity";
@@ -48,6 +49,9 @@ export class User {
   })
   @JoinColumn({ name: 'shelter_id', referencedColumnName: 'id' })
   shelter: Shelter;
+
+  @OneToMany(() => Dog, dog => dog.user)
+  dogs: Dog[];
 
   @OneToMany(() => Comment, comment => comment.user,)
   comments: Comment[];

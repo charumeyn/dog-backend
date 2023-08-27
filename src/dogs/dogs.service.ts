@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Shelter } from 'src/shelters/entities/shelter.entity';
 import { Donation } from 'src/donations/entities/donation.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class DogsService {
@@ -16,6 +17,8 @@ export class DogsService {
   private readonly shelterRepository: Repository<Shelter>
   @InjectRepository(Donation)
   private readonly donationRepository: Repository<Donation>
+  @InjectRepository(User)
+  private readonly userRepository: Repository<User>
 
   async create(dto: CreateDogDto) {
     const dog = this.dogRepository.create({
@@ -23,9 +26,17 @@ export class DogsService {
       createdAt: new Date()
     })
 
-    dog.shelter = await this.shelterRepository.findOneOrFail({
-      where: { id: dto.shelterId }
-    })
+    if (dto.shelterId != undefined) {
+      dog.shelter = await this.shelterRepository.findOneOrFail({
+        where: { id: dto.shelterId }
+      })
+    }
+
+    if (dto.userId != undefined) {
+      dog.user = await this.userRepository.findOneOrFail({
+        where: { id: dto.userId }
+      })
+    }
 
     await this.dogRepository.save(dog);
 
@@ -42,6 +53,7 @@ export class DogsService {
       take: limit,
       relations: {
         shelter: true,
+        user: true,
         posts: true,
         donations: true,
       },
@@ -60,6 +72,7 @@ export class DogsService {
       where: { id },
       relations: {
         shelter: true,
+        user: true,
         posts: true,
         donations: true,
         comments: true,
