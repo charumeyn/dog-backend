@@ -72,10 +72,10 @@ export class Dog {
   @Column({ nullable: true })
   description?: string;
 
-  @Column({ name: 'is_active', type: 'boolean' })
+  @Column({ name: 'is_active', type: 'boolean', default: true })
   isActive!: boolean;
 
-  @Column({ name: 'created_at', type: 'date' })
+  @Column({ name: 'created_at', type: 'date', default: new Date() })
   createdAt!: Date;
 
   @Column({ nullable: true })

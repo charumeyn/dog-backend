@@ -36,10 +36,6 @@ export class CreateDogDto {
   @IsString()
   readonly description: string;
 
-  @IsNotEmpty()
-  @IsBoolean()
-  readonly isActive: boolean;
-
   @IsOptional()
   @IsNumber()
   readonly shelterId: number;

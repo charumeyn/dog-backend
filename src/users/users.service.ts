@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Response, Request } from "express";
+import { UpdateUserDto } from './dto/update-user.dto';
 
 
 @Injectable()
@@ -110,6 +111,27 @@ export class UsersService {
         data: "You are logged out"
       };
     }
+  }
+
+  async update(id: number, dto: UpdateUserDto) {
+    const user = await this.usersRepository.preload({
+      id: +id,
+      ...dto
+    })
+
+    if (!user) {
+      throw new NotFoundException(`User with ${id} not found`);
+    }
+    await this.usersRepository.save(user);
+
+    const updatedUser = await this.usersRepository.findOneOrFail({
+      where: { id }
+    })
+
+    return {
+      success: true,
+      data: updatedUser,
+    };
   }
 
   async logout(response: Response) {

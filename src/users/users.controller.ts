@@ -1,8 +1,9 @@
-import { BadRequestException, Body, Controller, Get, Post, Req, Res, UnauthorizedException } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Param, Patch, Post, Req, Res, UnauthorizedException } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { Response, Request } from "express";
 import { RegisterDto } from "./dto/register.dto";
 import { LoginDto } from "./dto/login.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Controller()
 export class UsersController {
@@ -29,5 +30,10 @@ export class UsersController {
   @Post('/auth/logout')
   async logout(@Res({ passthrough: true }) response: Response) {
     return this.usersService.logout(response)
+  }
+
+  @Patch('/account/:id')
+  update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+    return this.usersService.update(+id, dto);
   }
 }
