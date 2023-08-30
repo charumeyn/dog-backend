@@ -8,6 +8,7 @@ import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Response, Request } from "express";
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 
 @Injectable()
@@ -143,6 +144,17 @@ export class UsersService {
     }
   }
 
+  async findAll(paginationQuery: PaginationQueryDto) {
+    const { limit, offset } = paginationQuery;
+    const users = await this.usersRepository.find({
+      skip: offset,
+      take: limit,
+    })
+
+    const filteredUsers = users.filter((user) => user.type === UserType.User)
+
+    return filteredUsers;
+  }
 
   async findOne(email: string) {
     const user = await this.usersRepository.findOneBy({
@@ -154,12 +166,14 @@ export class UsersService {
     return user;
   }
 
-  async findOneById(id: number): Promise<User> {
-    return this.usersRepository.findOne({
-      where: {
-        id
-      },
+  async findOneById(id: number) {
+    const user = await this.usersRepository.findOneOrFail({
+      where: { id },
     })
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} was not found`)
+    }
+    return user;
   }
 
 }

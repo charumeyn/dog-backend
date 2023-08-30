@@ -22,7 +22,7 @@ export class User {
   public email!: string;
 
   @Exclude()
-  @Column()
+  @Column({ select: false })
   public password!: string;
 
   @Column({ name: 'last_login_date', type: 'timestamp', nullable: true, default: null })

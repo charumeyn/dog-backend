@@ -13,6 +13,11 @@ export class SheltersController {
     return this.sheltersService.create(createShelterDto);
   }
 
+  @Get()
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.sheltersService.findAll(paginationQuery);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.sheltersService.findOne(+id);

@@ -5,6 +5,7 @@ import { Shelter } from './entities/shelter.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Injectable()
 export class SheltersService {
@@ -22,6 +23,16 @@ export class SheltersService {
       success: true,
       data: shelter,
     };
+  }
+
+  async findAll(paginationQuery: PaginationQueryDto) {
+    const { limit, offset } = paginationQuery;
+    const shelters = await this.shelterRepository.find({
+      skip: offset,
+      take: limit,
+    })
+
+    return shelters;
   }
 
   async findOne(id: number) {

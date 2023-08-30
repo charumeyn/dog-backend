@@ -1,9 +1,10 @@
-import { BadRequestException, Body, Controller, Get, Param, Patch, Post, Req, Res, UnauthorizedException } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Param, Patch, Post, Query, Req, Res, UnauthorizedException } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { Response, Request } from "express";
 import { RegisterDto } from "./dto/register.dto";
 import { LoginDto } from "./dto/login.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { PaginationQueryDto } from "src/common/dto/pagination-query.dto";
 
 @Controller()
 export class UsersController {
@@ -35,5 +36,15 @@ export class UsersController {
   @Patch('/account/:id')
   update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
     return this.usersService.update(+id, dto);
+  }
+
+  @Get('/accounts')
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.usersService.findAll(paginationQuery);
+  }
+
+  @Get('/accounts/:id')
+  findOneById(@Param('id') id: number) {
+    return this.usersService.findOneById(+id);
   }
 }
