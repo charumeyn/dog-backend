@@ -40,7 +40,7 @@ export class User {
   @Column({ nullable: true, default: UserType.User })
   public type: UserType;
 
-  @Column({ nullable: true, type: "simple-array" })
+  @Column({ name: 'favorite_dog_ids', nullable: true, type: "simple-array" })
   public favoriteDogIds?: number[];
 
   @OneToOne(() => Address)

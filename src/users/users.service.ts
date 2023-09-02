@@ -7,7 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Response, Request } from "express";
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateFavoritesDto, UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 
@@ -135,10 +135,10 @@ export class UsersService {
     };
   }
 
-  async updateFavorites(id: number, dogIds: number[]) {
+  async updateFavorites(id: number, dto: UpdateFavoritesDto) {
     const user = await this.usersRepository.preload({
-      id,
-      favoriteDogIds: dogIds
+      id: +id,
+      ...dto
     })
 
     if (!user) {

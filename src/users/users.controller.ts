@@ -3,7 +3,7 @@ import { UsersService } from "./users.service";
 import { Response, Request } from "express";
 import { RegisterDto } from "./dto/register.dto";
 import { LoginDto } from "./dto/login.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
+import { UpdateFavoritesDto, UpdateUserDto } from "./dto/update-user.dto";
 import { PaginationQueryDto } from "src/common/dto/pagination-query.dto";
 
 @Controller()
@@ -39,8 +39,8 @@ export class UsersController {
   }
 
   @Patch('/account/:id/update-favorites')
-  updateFavorites(@Param('id') id: string, @Body() dogIds: number[]) {
-    return this.usersService.updateFavorites(+id, dogIds);
+  updateFavorites(@Param('id') id: string, @Body() dto: UpdateFavoritesDto) {
+    return this.usersService.updateFavorites(+id, dto);
   }
 
   @Get('/accounts')
