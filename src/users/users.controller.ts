@@ -38,6 +38,11 @@ export class UsersController {
     return this.usersService.update(+id, dto);
   }
 
+  @Patch('/account/:id/update-favorites')
+  updateFavorites(@Param('id') id: string, @Body() dogIds: number[]) {
+    return this.usersService.updateFavorites(+id, dogIds);
+  }
+
   @Get('/accounts')
   findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.usersService.findAll(paginationQuery);

@@ -135,6 +135,27 @@ export class UsersService {
     };
   }
 
+  async updateFavorites(id: number, dogIds: number[]) {
+    const user = await this.usersRepository.preload({
+      id,
+      favoriteDogIds: dogIds
+    })
+
+    if (!user) {
+      throw new NotFoundException(`User with ${id} not found`);
+    }
+    await this.usersRepository.save(user);
+
+    const updatedUser = await this.usersRepository.findOneOrFail({
+      where: { id }
+    })
+
+    return {
+      success: true,
+      data: updatedUser,
+    };
+  }
+
   async logout(response: Response) {
     response.clearCookie('jwt')
 

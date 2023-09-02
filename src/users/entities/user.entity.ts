@@ -22,7 +22,7 @@ export class User {
   public email!: string;
 
   @Exclude()
-  @Column({ select: false })
+  @Column()
   public password!: string;
 
   @Column({ name: 'last_login_date', type: 'timestamp', nullable: true, default: null })
@@ -40,18 +40,15 @@ export class User {
   @Column({ nullable: true, default: UserType.User })
   public type: UserType;
 
+  @Column({ nullable: true, type: "simple-array" })
+  public favoriteDogIds?: number[];
+
   @OneToOne(() => Address)
   @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   public address?: Address;
 
   @OneToOne(() => Shelter, shelter => shelter.user)
   shelter: Shelter;
-
-  // @ManyToOne(() => Shelter, (shelter) => shelter.users, {
-  //   cascade: true
-  // })
-  // @JoinColumn({ name: 'shelter_id', referencedColumnName: 'id' })
-  // shelter: Shelter;
 
   @OneToMany(() => Dog, dog => dog.user)
   dogs: Dog[];
