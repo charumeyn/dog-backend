@@ -37,6 +37,9 @@ export class User {
   @Column({ nullable: true })
   public phone?: string;
 
+  @Column({ nullable: true })
+  image: string;
+
   @Column({ nullable: true, default: UserType.User })
   public type: UserType;
 

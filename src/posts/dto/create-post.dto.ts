@@ -3,7 +3,7 @@ import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from "class
 export class CreatePostDto {
   @IsNumber()
   @IsNotEmpty()
-  readonly dog_id: number;
+  readonly dogId: number;
 
   @IsString()
   @IsNotEmpty()
@@ -13,9 +13,9 @@ export class CreatePostDto {
   @IsNotEmpty()
   readonly content: string;
 
-  @IsString()
+  @IsUrl()
   @IsNotEmpty()
-  readonly thumb_image: string;
+  readonly mainImage: string;
 
   @IsUrl({}, { each: true })
   @IsOptional()
@@ -23,15 +23,7 @@ export class CreatePostDto {
 
   @IsDate()
   @IsNotEmpty()
-  readonly created_at: Date;
-
-  @IsDate()
-  @IsOptional()
-  readonly updated_at: Date;
-
-  @IsDate()
-  @IsOptional()
-  readonly deleted_at: Date;
+  readonly createdAt: Date;
 }
 
 

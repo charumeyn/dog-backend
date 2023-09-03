@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
 
 export class UpdateUserDto {
   @IsString()
@@ -8,6 +8,10 @@ export class UpdateUserDto {
   @IsString()
   @IsNotEmpty()
   readonly lastName: string;
+
+  @IsUrl()
+  @IsOptional()
+  readonly image: string;
 }
 
 export class UpdateFavoritesDto {

@@ -14,7 +14,7 @@ export class CreateDogDto {
   readonly birthdate: Date;
 
   @ArrayNotEmpty()
-  readonly color: Color[];
+  readonly color: Color;
 
   @IsNotEmpty()
   readonly size: Size;
@@ -35,6 +35,10 @@ export class CreateDogDto {
   @IsOptional()
   @IsString()
   readonly description: string;
+
+  @IsOptional()
+  @IsString()
+  readonly content: string;
 
   @IsOptional()
   @IsNumber()

@@ -1,5 +1,5 @@
 import { IsOptional, IsPositive } from "class-validator";
-import { Color, Gender, Size } from "src/dogs/entities/dog.entity";
+import { CoatLength, Color, Gender, Size } from "src/dogs/entities/dog.entity";
 
 export class PaginationQueryDto {
   @IsOptional()
@@ -20,5 +20,5 @@ export class PaginationQueryDto {
   gender: Gender;
 
   @IsOptional()
-  breed: string[];
+  coatLength: CoatLength;
 }

@@ -47,7 +47,7 @@ export class DogsService {
   }
 
   async findAll(paginationQuery: PaginationQueryDto) {
-    const { limit, offset, size, color, gender, breed } = paginationQuery;
+    const { limit, offset, size, color, gender, coatLength } = paginationQuery;
     const dogs = await this.dogRepository.find({
       skip: offset,
       take: limit,
@@ -61,6 +61,7 @@ export class DogsService {
         size: size,
         color: color,
         gender: gender,
+        coatLength: coatLength,
       }
     })
 
@@ -113,3 +114,4 @@ export class DogsService {
     return `This action removes a #${id} dog`;
   }
 }
+

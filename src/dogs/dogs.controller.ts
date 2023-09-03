@@ -18,7 +18,6 @@ export class DogsController {
     return this.dogsService.findAll(paginationQuery);
   }
 
-
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.dogsService.findOne(+id);

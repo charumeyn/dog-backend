@@ -50,9 +50,6 @@ export class Shelter {
   @OneToMany(() => Fundraiser, fundraiser => fundraiser.shelter)
   fundraisers: Fundraiser[];
 
-  // @OneToMany(() => User, user => user.shelter)
-  // users: User[];
-
   @OneToMany(() => Donation, donation => donation.shelter)
   donations: Donation[];
 

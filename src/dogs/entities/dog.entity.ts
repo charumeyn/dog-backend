@@ -14,9 +14,10 @@ export enum Color {
   Gold = "gold",
   Gray = "gray",
   Cream = "cream",
-  Yellow = "yellow"
+  Yellow = "yellow",
+  BlackAndWhite = "black_and_white",
+  BrownAndWhite = "brown_and_white",
 }
-
 export enum Size {
   XS = "extra_small",
   S = "small",
@@ -51,8 +52,8 @@ export class Dog {
   @Column({ nullable: true })
   birthdate?: Date;
 
-  @Column({ type: "simple-array", nullable: true })
-  color: Color[];
+  @Column({ type: 'enum', enum: Color, nullable: true })
+  color?: Color;
 
   @Column({ type: 'enum', enum: Size })
   size!: Size;
@@ -72,6 +73,9 @@ export class Dog {
   @Column({ nullable: true })
   description?: string;
 
+  @Column({ nullable: true })
+  content?: string;
+
   @Column({ name: 'is_active', type: 'boolean', default: true })
   isActive!: boolean;
 
@@ -81,8 +85,8 @@ export class Dog {
   @Column({ nullable: true })
   updatedAt?: Date;
 
-  @Column({ nullable: true })
-  deleted_at?: Date;
+  @Column({ name: 'deletedAt', nullable: true })
+  deletedAt?: Date;
 
   @ManyToOne(() => Shelter, (shelter) => shelter.dogs, {
     cascade: true

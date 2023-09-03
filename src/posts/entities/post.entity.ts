@@ -5,7 +5,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @ManyToOne(() => Dog, (dog) => dog.posts, {
     cascade: true,
@@ -16,25 +16,24 @@ export class Post {
   @OneToMany(() => Comment, comment => comment.post)
   comments: Comment[];
 
+  @Column()
+  title!: string;
 
   @Column()
-  title: string;
+  content!: string;
 
-  @Column()
-  content: string;
+  @Column({ name: 'main_image' })
+  mainImage!: string;
 
-  @Column()
-  thumb_image: string;
+  @Column({ type: 'json' })
+  images!: string[];
 
-  @Column('json')
-  images: string[];
-
-  @Column()
-  created_at: Date;
+  @Column({ name: 'created_at', type: 'date', default: new Date() })
+  createdAt!: Date;
 
   @Column({ nullable: true })
-  updated_at?: Date | null;
+  updatedAt?: Date | null;
 
   @Column({ nullable: true })
-  deleted_at?: Date | null;
+  deletedAt?: Date | null;
 }

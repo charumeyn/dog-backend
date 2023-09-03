@@ -17,18 +17,16 @@ export class PostsService {
   @InjectRepository(Comment)
   private readonly commentRepository: Repository<Comment>
 
-  async create(createPostDto: CreatePostDto) {
-    const getDog = await this.dogRepository.findOneOrFail({
-      where: { id: createPostDto.dog_id },
-    })
+  async create(dto: CreatePostDto) {
     const post = this.postRepository.create({
-      title: createPostDto.title,
-      content: createPostDto.content,
-      thumb_image: createPostDto.thumb_image,
-      images: createPostDto.images,
-      created_at: createPostDto.created_at,
-      dog: getDog
+      ...dto,
+      createdAt: new Date()
     })
+
+    post.dog = await this.dogRepository.findOneOrFail({
+      where: { id: dto.dogId }
+    })
+
     await this.postRepository.save(post)
 
     return {
@@ -44,6 +42,7 @@ export class PostsService {
       take: limit,
       relations: {
         dog: true,
+        comments: true
       }
     })
 
