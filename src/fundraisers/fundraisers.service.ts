@@ -1,13 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFundraiserDto } from './dto/create-fundraiser.dto';
 import { UpdateFundraiserDto } from './dto/update-fundraiser.dto';
-import { Fundraiser, FundraiserType } from './entities/fundraiser.entity';
-import { Repository } from 'typeorm';
+import { Fundraiser, FundraiserStatus, FundraiserType } from './entities/fundraiser.entity';
+import { LessThan, MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { FundraiserPaginationQueryDto, PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Dog } from 'src/dogs/entities/dog.entity';
 import { Shelter } from 'src/shelters/entities/shelter.entity';
 import { User } from 'src/users/entities/user.entity';
+import moment from 'moment';
 
 @Injectable()
 export class FundraisersService {
@@ -52,8 +53,27 @@ export class FundraisersService {
   }
 
 
-  async findAll(paginationQuery: PaginationQueryDto) {
-    const { limit, offset } = paginationQuery;
+  async findAll(dto: FundraiserPaginationQueryDto) {
+    const { limit, offset, status } = dto;
+
+    let startsAt;
+    let endsAt;
+
+    switch (status) {
+      case FundraiserStatus.InProgress:
+        startsAt = LessThan(new Date())
+        endsAt = MoreThan(new Date())
+        break
+      case FundraiserStatus.Ended:
+        startsAt = LessThan(new Date())
+        endsAt = LessThan(new Date())
+        break
+      case FundraiserStatus.NotStarted:
+        startsAt = MoreThan(new Date())
+        endsAt = MoreThan(new Date())
+        break
+    }
+
     const fundraisers = await this.fundraiserRepository.find({
       skip: offset,
       take: limit,
@@ -63,6 +83,10 @@ export class FundraisersService {
         comments: true,
         dog: true,
         user: true,
+      },
+      where: {
+        startsAt: startsAt,
+        endsAt: endsAt
       }
     })
 

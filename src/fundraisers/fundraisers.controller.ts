@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { FundraisersService } from './fundraisers.service';
 import { CreateFundraiserDto } from './dto/create-fundraiser.dto';
 import { UpdateFundraiserDto } from './dto/update-fundraiser.dto';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { FundraiserPaginationQueryDto, PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Controller('fundraisers')
 export class FundraisersController {
@@ -14,8 +14,8 @@ export class FundraisersController {
   }
 
   @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
-    return this.fundraisersService.findAll(paginationQuery);
+  findAll(@Query() dto: FundraiserPaginationQueryDto) {
+    return this.fundraisersService.findAll(dto);
   }
 
   @Get(':id')

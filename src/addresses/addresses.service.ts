@@ -15,7 +15,7 @@ export class AddressesService {
   private readonly userRepository: Repository<User>
 
   async findAll(paginationQuery: PaginationQueryDto) {
-    const { limit, offset, size } = paginationQuery;
+    const { limit, offset } = paginationQuery;
     const addresses = await this.addressRepository.find({
       skip: offset,
       take: limit,

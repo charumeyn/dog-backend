@@ -11,6 +11,12 @@ export enum FundraiserType {
   Shelter = "SHELTER"
 }
 
+export enum FundraiserStatus {
+  NotStarted = "not_started",
+  InProgress = "in_progress",
+  Ended = "ended",
+}
+
 @Entity()
 export class Fundraiser {
   @PrimaryGeneratedColumn()

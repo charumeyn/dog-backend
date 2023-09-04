@@ -4,7 +4,7 @@ import { UpdateDogDto } from './dto/update-dog.dto';
 import { Repository } from 'typeorm';
 import { Dog } from './entities/dog.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { DogPaginationQueryDto, PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Shelter } from 'src/shelters/entities/shelter.entity';
 import { Donation } from 'src/donations/entities/donation.entity';
 import { User } from 'src/users/entities/user.entity';
@@ -46,8 +46,8 @@ export class DogsService {
     };
   }
 
-  async findAll(paginationQuery: PaginationQueryDto) {
-    const { limit, offset, size, color, gender, coatLength } = paginationQuery;
+  async findAll(dto: DogPaginationQueryDto) {
+    const { limit, offset, size, color, gender, coatLength } = dto;
     const dogs = await this.dogRepository.find({
       skip: offset,
       take: limit,

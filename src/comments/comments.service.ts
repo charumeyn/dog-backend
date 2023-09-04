@@ -63,7 +63,7 @@ export class CommentsService {
   }
 
   async findAll(paginationQuery: PaginationQueryDto) {
-    const { limit, offset, size } = paginationQuery;
+    const { limit, offset } = paginationQuery;
     const comments = await this.commentRepository.find({
       skip: offset,
       take: limit,
