@@ -4,7 +4,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from './entities/post.entity';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { FavoritesPaginationQueryDto, PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Dog } from 'src/dogs/entities/dog.entity';
 import { Comment } from 'src/comments/entities/comment.entity';
 
@@ -49,6 +49,23 @@ export class PostsService {
     return posts;
   }
 
+  async findAllByIds(dto: FavoritesPaginationQueryDto) {
+    const { limit, offset, dogIds } = dto;
+    const posts = await this.postRepository.find({
+      skip: offset,
+      take: limit,
+      relations: {
+        dog: true,
+      }
+    })
+
+    if (dogIds) {
+      return posts.filter((post) => dogIds.indexOf(post.dog.id) != -1)
+    }
+    else {
+      return posts;
+    }
+  }
   async findOne(id: number) {
     const post = await this.postRepository.findOneOrFail({
       where: { id },

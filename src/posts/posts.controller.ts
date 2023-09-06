@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { FavoritesPaginationQueryDto, PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -16,6 +16,11 @@ export class PostsController {
   @Get()
   findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.postsService.findAll(paginationQuery);
+  }
+
+  @Get('/favorites')
+  findAllByIds(@Query() dto: FavoritesPaginationQueryDto) {
+    return this.postsService.findAllByIds(dto);
   }
 
   @Get(':id')

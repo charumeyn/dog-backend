@@ -4,7 +4,7 @@ import { UpdateDogDto } from './dto/update-dog.dto';
 import { Repository } from 'typeorm';
 import { Dog } from './entities/dog.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DogPaginationQueryDto, PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { DogPaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Shelter } from 'src/shelters/entities/shelter.entity';
 import { Donation } from 'src/donations/entities/donation.entity';
 import { User } from 'src/users/entities/user.entity';
