@@ -56,6 +56,7 @@ export class PostsService {
       take: limit,
       relations: {
         dog: true,
+        comments: true,
       }
     })
 

@@ -43,9 +43,6 @@ export class User {
   @Column({ nullable: true, default: UserType.User })
   public type: UserType;
 
-  @Column({ name: 'favorite_dog_ids', nullable: true, type: "simple-array" })
-  public favoriteDogIds?: number[];
-
   @OneToOne(() => Address)
   @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   public address?: Address;
@@ -67,4 +64,8 @@ export class User {
 
   @OneToMany(() => Fundraiser, createdFundraiser => createdFundraiser.createdByUser,)
   createdFundraisers: Fundraiser[];
+
+  @Column({ name: 'favorite_dog_ids', nullable: true, type: "int", array: true, default: [] })
+  public favoriteDogIds?: number[];
+
 }
