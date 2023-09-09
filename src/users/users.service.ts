@@ -78,7 +78,6 @@ export class UsersService {
       const data = await this.jwtService.verifyAsync(cookie);
 
       if (!data) {
-        // throw new UnauthorizedException();
         return {
           success: false,
           data: "You are logged out"
@@ -106,7 +105,6 @@ export class UsersService {
     }
 
     catch (e) {
-      // throw new UnauthorizedException();
       return {
         success: false,
         data: "You are logged out"

@@ -56,7 +56,7 @@ export class User {
   @OneToMany(() => Comment, comment => comment.user,)
   comments: Comment[];
 
-  @OneToMany(() => Donation, donation => donation.user,)
+  @OneToMany(() => Donation, donation => donation.donor,)
   donations: Donation[];
 
   @OneToMany(() => Fundraiser, fundraiser => fundraiser.user,)

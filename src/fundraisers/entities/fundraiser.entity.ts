@@ -89,9 +89,6 @@ export class Fundraiser {
   @JoinColumn({ name: 'created_by_id', referencedColumnName: 'id' })
   createdByUser: User;
 
-  // @Column({ name: 'created_by', nullable: true })
-  // createdBy: number;
-
   @OneToMany(() => Donation, (donation) => donation.fundraiser)
   donations: Donation[];
 

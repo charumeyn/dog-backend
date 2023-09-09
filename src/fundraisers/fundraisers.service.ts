@@ -102,6 +102,7 @@ export class FundraisersService {
         comments: true,
         dog: true,
         user: true,
+        createdByUser: true,
       }
     })
     if (!fundraiser) {

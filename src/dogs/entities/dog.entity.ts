@@ -46,7 +46,7 @@ export class Dog {
   @Column()
   name!: string;
 
-  @Column({ type: "simple-array" })
+  @Column({ type: 'varchar', array: true, default: [] })
   breed!: string[];
 
   @Column({ nullable: true })
