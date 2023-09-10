@@ -37,14 +37,8 @@ export class Fundraiser {
   @Column({ type: 'json' })
   images: string[];
 
-  @Column({ nullable: true })
-  purpose: string;
-
   @Column({ name: 'goal_amount' })
   goalAmount!: number;
-
-  @Column({ name: 'current_amount', default: 0 })
-  currentAmount!: number;
 
   @Column({ name: 'starts_at', type: 'date', nullable: true })
   startsAt?: Date;

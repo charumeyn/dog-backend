@@ -1,13 +1,9 @@
-import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
 
 export class CreatePostDto {
   @IsNumber()
   @IsNotEmpty()
   readonly dogId: number;
-
-  @IsString()
-  @IsNotEmpty()
-  readonly title: string;
 
   @IsString()
   @IsNotEmpty()
@@ -20,10 +16,6 @@ export class CreatePostDto {
   @IsUrl({}, { each: true })
   @IsOptional()
   readonly images: string[];
-
-  @IsDate()
-  @IsNotEmpty()
-  readonly createdAt: Date;
 }
 
 

@@ -64,7 +64,7 @@ export class PostsService {
       return posts.filter((post) => dogIds.indexOf(post.dog.id) != -1)
     }
     else {
-      return posts;
+      return null;
     }
   }
   async findOne(id: number) {

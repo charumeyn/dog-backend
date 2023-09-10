@@ -5,7 +5,7 @@ import { Dog } from "src/dogs/entities/dog.entity";
 import { Donation } from "src/donations/entities/donation.entity";
 import { Fundraiser } from "src/fundraisers/entities/fundraiser.entity";
 import { Shelter } from "src/shelters/entities/shelter.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 export enum UserType {
   User = "user",
@@ -37,8 +37,8 @@ export class User {
   @Column({ nullable: true })
   public phone?: string;
 
-  @Column({ nullable: true })
-  image: string;
+  @Column({ default: 'https://doggoslife.s3.ap-northeast-2.amazonaws.com/default-user.jpg' })
+  image!: string;
 
   @Column({ nullable: true, default: UserType.User })
   public type: UserType;

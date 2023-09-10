@@ -23,10 +23,6 @@ export class CreateFundraiserDto {
   readonly images: string[];
 
   @IsNotEmpty()
-  @IsString()
-  readonly purpose: string;
-
-  @IsNotEmpty()
   @IsNumber()
   readonly goalAmount: number;
 
@@ -40,7 +36,7 @@ export class CreateFundraiserDto {
 
   @IsOptional()
   @IsNumber()
-  readonly createdBy: number;
+  readonly createdById: number;
 
   @IsNotEmpty()
   readonly type: FundraiserType;

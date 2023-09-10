@@ -35,7 +35,7 @@ export class Shelter {
   @Column({ name: 'approved_at', type: 'date', nullable: true })
   approvedAt?: Date;
 
-  @Column({ name: 'main_image' })
+  @Column({ name: 'main_image', default: 'https://doggoslife.s3.ap-northeast-2.amazonaws.com/default-shelter.jpg' })
   mainImage!: string;
 
   @Column({ type: 'json', nullable: true })

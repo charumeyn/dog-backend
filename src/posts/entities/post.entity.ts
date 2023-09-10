@@ -17,9 +17,6 @@ export class Post {
   comments: Comment[];
 
   @Column()
-  title!: string;
-
-  @Column()
   content!: string;
 
   @Column({ name: 'main_image' })

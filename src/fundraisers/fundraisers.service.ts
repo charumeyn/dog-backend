@@ -45,6 +45,10 @@ export class FundraisersService {
       })
     }
 
+    fundraiser.createdByUser = await this.userRepository.findOneOrFail({
+      where: { id: dto.createdById }
+    })
+
     await this.fundraiserRepository.save(fundraiser);
     return {
       success: true,
@@ -83,6 +87,7 @@ export class FundraisersService {
         comments: true,
         dog: true,
         user: true,
+        createdByUser: true,
       },
       where: {
         startsAt: startsAt,
