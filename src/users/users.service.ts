@@ -89,7 +89,6 @@ export class UsersService {
           id: Number(data['id'])
         },
         relations: {
-          address: true,
           shelter: true,
           donations: true,
           fundraisers: true,

@@ -13,27 +13,20 @@ export class Shelter {
   @Column()
   name!: string;
 
-  @Column({ nullable: true })
+  @Column()
   description: string;
 
-  @Column({ nullable: true })
-  content: string;
+  @Column()
+  content!: string;
 
-  @OneToOne(() => Address)
-  @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
-  address: Address;
+  @Column()
+  address!: string;
 
-  @Column({ name: 'approver_id', nullable: true })
-  approverId?: number;
-
-  @Column({ name: 'is_active', type: 'boolean', default: true })
-  isActive!: boolean;
+  @Column()
+  phone!: string;
 
   @Column({ name: 'is_approved', type: 'boolean', default: true })
   isApproved!: boolean;
-
-  @Column({ name: 'approved_at', type: 'date', nullable: true })
-  approvedAt?: Date;
 
   @Column({ name: 'main_image', default: 'https://doggoslife.s3.ap-northeast-2.amazonaws.com/default-shelter.jpg' })
   mainImage!: string;

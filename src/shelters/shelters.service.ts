@@ -42,7 +42,6 @@ export class SheltersService {
         dogs: true,
         donations: true,
         fundraisers: true,
-        address: true,
         user: true,
       },
     })

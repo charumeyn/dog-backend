@@ -1,4 +1,4 @@
-import { ArrayNotEmpty, IsBoolean, IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
+import { ArrayNotEmpty, IsBoolean, IsDate, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString, IsUrl } from "class-validator";
 
 export class CreateShelterDto {
   @IsString()
@@ -12,6 +12,14 @@ export class CreateShelterDto {
   @IsString()
   @IsNotEmpty()
   readonly content: string;
+
+  @IsString()
+  @IsNotEmpty()
+  readonly address: string;
+
+  @IsString()
+  @IsNotEmpty()
+  readonly phone: string;
 
   @IsNotEmpty()
   @IsUrl()
