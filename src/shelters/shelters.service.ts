@@ -14,10 +14,15 @@ export class SheltersService {
   @InjectRepository(User)
   private readonly userRepository: Repository<User>
 
-  async create(createShelterDto: CreateShelterDto) {
+  async create(dto: CreateShelterDto) {
     const shelter = this.shelterRepository.create({
-      ...createShelterDto
+      ...dto
     })
+
+    shelter.user = await this.userRepository.findOneOrFail({
+      where: { id: dto.userId }
+    })
+
     await this.shelterRepository.save(shelter);
     return {
       success: true,
